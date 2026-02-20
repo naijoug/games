@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2048 Mini Game</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>2048</h1>
+          <p>Swipe or use arrow keys to combine tiles.</p>
+        </div>
+
+        <div class="scores">
+          <div class="score-card">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="score-card">
+            <span class="label">Best</span>
+            <strong id="best">0</strong>
+          </div>
+        </div>
+
+        <button id="new-game" class="primary-btn" type="button">New Game</button>
+      </section>
+
+      <section class="board-wrap">
+        <div id="overlay" class="overlay hidden">
+          <h2 id="overlay-title"></h2>
+          <button id="overlay-action" class="primary-btn" type="button">Play Again</button>
+        </div>
+        <div id="board" class="board" aria-label="2048 game board"></div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
