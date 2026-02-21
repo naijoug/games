@@ -1,11 +1,8 @@
-name: Deploy 2048 to GitHub Pages
+name: Deploy Games to GitHub Pages
 
 on:
   push:
     branches: ["main"]
-    paths:
-      - "2048/**"
-      - ".github/workflows/deploy-2048-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -30,10 +27,24 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build site artifact
+        run: |
+          mkdir -p _site
+          if [ -f index.html ]; then
+            cp index.html _site/index.html
+          fi
+
+          for d in */; do
+            dir="${d%/}"
+            if [ -f "$dir/index.html" ]; then
+              cp -R "$dir" "_site/$dir"
+            fi
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./2048
+          path: ./_site
 
       - name: Deploy
         id: deployment
