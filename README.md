@@ -2,6 +2,12 @@
 
 This repository contains small browser games.
 
+## Online
+
+- Home: https://naijoug.github.io/games/
+- 2048: https://naijoug.github.io/games/2048/
+- Snake: https://naijoug.github.io/games/snake/
+
 ## 2048
 
 ### Goal
@@ -29,3 +35,23 @@ Your score increases by the value of merged tiles.
 
 - Win when a `2048` tile appears.
 - Lose when no valid moves remain.
+
+## Snake
+
+### Goal
+
+Eat food to grow while avoiding walls and your own body.
+
+### Controls
+
+- Keyboard: `Arrow Keys` or `W / A / S / D`
+- Pause/Resume: `Space`
+- Mobile: on-screen direction buttons
+
+### Rules
+
+- The board is `16 x 16`.
+- The snake moves one cell every tick.
+- Eating food grows the snake by `1` and adds `1` score.
+- The game ends when the snake hits a wall or itself.
+- Use `Restart` or `Play Again` to start over.

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Mini Game</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Snake</h1>
+          <p>Use arrow keys or WASD. Eat food and avoid walls or yourself.</p>
+        </div>
+
+        <div class="scores">
+          <div class="score-card">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="score-card">
+            <span class="label">State</span>
+            <strong id="status">Running</strong>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="pause" class="primary-btn" type="button">Pause</button>
+          <button id="restart" class="primary-btn" type="button">Restart</button>
+        </div>
+      </section>
+
+      <section class="board-wrap">
+        <div id="overlay" class="overlay hidden">
+          <h2 id="overlay-title">Game Over</h2>
+          <button id="overlay-action" class="primary-btn" type="button">Play Again</button>
+        </div>
+        <div id="board" class="board" aria-label="Snake game board"></div>
+      </section>
+
+      <section class="mobile-controls" aria-label="Snake touch controls">
+        <button class="control-btn" data-dir="up" type="button">Up</button>
+        <div class="control-row">
+          <button class="control-btn" data-dir="left" type="button">Left</button>
+          <button class="control-btn" data-dir="down" type="button">Down</button>
+          <button class="control-btn" data-dir="right" type="button">Right</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
