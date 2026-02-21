@@ -1,4 +1,4 @@
-# 2048 Mini Game
+# Mini Games
 
 This repository deploys multiple static mini games using GitHub Pages.
 
