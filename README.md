@@ -1,35 +1,31 @@
 # Mini Games
 
-This repository deploys multiple static mini games using GitHub Pages.
+This repository contains small browser games.
 
-## Local Run
+## 2048
 
-Open `2048/index.html` in a browser.
+### Goal
 
-## Test
+Merge tiles and reach `2048` on the board.
 
-```bash
-node --test 2048/tests/game-core.test.js
-```
+### Controls
 
-## Deploy to GitHub Pages
+- Keyboard: `Arrow Keys` or `W / A / S / D`
+- Mobile: swipe up/down/left/right
 
-1. Push this repository to `main`.
-2. In GitHub, go to `Settings -> Pages`.
-3. Under `Build and deployment`, choose `Source: GitHub Actions`.
-4. The workflow `.github/workflows/deploy-2048-pages.yml` deploys a site artifact with:
-- root landing page: `index.html`
-- each top-level folder that contains its own `index.html` (for example `2048/`)
+### Rules
 
-After the workflow succeeds, URLs are:
+- The board is `4 x 4`.
+- Every valid move slides tiles in one direction.
+- Tiles with the same number merge into one tile.
+- A merged tile value is doubled (for example `2 + 2 = 4`).
+- After each valid move, a new tile appears.
 
-- Home: `https://naijoug.github.io/games/`
-- 2048: `https://naijoug.github.io/games/2048/`
+### Scoring
 
-## Add More Games
+Your score increases by the value of merged tiles.
 
-1. Create a new top-level folder like `snake/`.
-2. Put a playable page at `snake/index.html`.
-3. Push to `main`.
+### Win / Lose
 
-The deploy workflow will include it automatically.
+- Win when a `2048` tile appears.
+- Lose when no valid moves remain.
