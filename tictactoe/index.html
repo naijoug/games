@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Tic Tac Toe</h1>
+          <p>Classic 3x3 local multiplayer.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Turn</span>
+            <strong id="turn">X</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Status</span>
+            <strong id="status">Playing</strong>
+          </div>
+        </div>
+
+        <button id="restart" class="primary-btn" type="button">Restart</button>
+      </section>
+
+      <section class="board-wrap">
+        <div id="board" class="board" aria-label="Tic tac toe board"></div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
