@@ -13,6 +13,7 @@ This repository contains small browser games.
 - Connect Four: https://naijoug.github.io/games/connect4/
 - Hangman: https://naijoug.github.io/games/hangman/
 - Simon: https://naijoug.github.io/games/simon/
+- Chess Arena: https://naijoug.github.io/games/chess/
 
 ## 2048
 
@@ -167,3 +168,24 @@ Repeat the color sequence as it grows each round.
 - Repeat the full sequence in order.
 - A wrong input ends the game.
 - Score equals the completed sequence length.
+
+## Chess Arena
+
+### Modes
+
+- Local PvP (same-device two-player)
+- Human vs AI (alpha-beta search with selectable depth)
+- Puzzle Challenge (`mate in 1`, `mate in 2`, `mate in 3`)
+- Classic Game Lessons (annotated move playback)
+
+### Controls
+
+- Click a piece, then click a highlighted target square to move
+- Use the left-side panel to switch modes and manage puzzle/lesson progress
+- `Reset` restarts the current mode
+- `Copy FEN` copies the current position for analysis/sharing
+
+### Notes
+
+- Bundles a local `chess.js` browser build for legal moves, check/checkmate and notation
+- Pawn promotion defaults to queen (`Q`)
