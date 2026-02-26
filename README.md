@@ -10,6 +10,9 @@ This repository contains small browser games.
 - Tic Tac Toe: https://naijoug.github.io/games/tictactoe/
 - Minesweeper: https://naijoug.github.io/games/minesweeper/
 - Memory Match: https://naijoug.github.io/games/memory/
+- Connect Four: https://naijoug.github.io/games/connect4/
+- Hangman: https://naijoug.github.io/games/hangman/
+- Simon: https://naijoug.github.io/games/simon/
 
 ## 2048
 
@@ -110,3 +113,57 @@ Find and match all card pairs.
 - Matching pair stays open.
 - Non-matching pair flips back after a short delay.
 - Matching all pairs wins.
+
+## Connect Four
+
+### Goal
+
+Drop discs and connect `4` in a row before your opponent.
+
+### Controls
+
+- Click any column cell to drop a disc
+- Local 2-player turns (`Red` / `Yellow`)
+
+### Rules
+
+- Board size is `7 x 6`.
+- Discs fall to the lowest empty slot in a column.
+- Connect 4 horizontally, vertically, or diagonally to win.
+- Full board with no winner is a draw.
+
+## Hangman
+
+### Goal
+
+Guess the hidden word before attempts run out.
+
+### Controls
+
+- Keyboard: `A-Z`
+- Mouse/touch: on-screen letter keyboard
+
+### Rules
+
+- Repeated guesses are ignored.
+- Correct guesses reveal all matching letters.
+- Wrong guesses reduce remaining attempts.
+- Reach `0` attempts and the round is lost.
+
+## Simon
+
+### Goal
+
+Repeat the color sequence as it grows each round.
+
+### Controls
+
+- Click colored pads
+- Keyboard shortcuts: `G / R / Y / B`
+
+### Rules
+
+- Start a round to watch the sequence playback.
+- Repeat the full sequence in order.
+- A wrong input ends the game.
+- Score equals the completed sequence length.

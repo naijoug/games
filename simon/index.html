@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Simon</h1>
+          <p>Watch the sequence, then repeat it.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Round</span>
+            <strong id="round">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+        </div>
+
+        <div class="stat-card status-card">
+          <span class="label">Status</span>
+          <strong id="status">Idle</strong>
+        </div>
+
+        <div class="actions">
+          <button id="start-next" class="primary-btn" type="button">Start Round</button>
+          <button id="restart" class="secondary-btn" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section class="board-wrap">
+        <div class="board" id="board" aria-label="Simon color pads">
+          <button class="pad green" data-color="green" type="button" aria-label="Green"></button>
+          <button class="pad red" data-color="red" type="button" aria-label="Red"></button>
+          <button class="pad yellow" data-color="yellow" type="button" aria-label="Yellow"></button>
+          <button class="pad blue" data-color="blue" type="button" aria-label="Blue"></button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

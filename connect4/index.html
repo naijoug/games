@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Connect Four</h1>
+          <p>Drop discs and connect 4 in a row.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Turn</span>
+            <strong id="turn">Red</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Status</span>
+            <strong id="status">Playing</strong>
+          </div>
+        </div>
+
+        <button id="restart" class="primary-btn" type="button">New Game</button>
+      </section>
+
+      <section class="board-wrap">
+        <div id="board" class="board" aria-label="Connect four board"></div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

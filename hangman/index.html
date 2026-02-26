@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Hangman</h1>
+          <p>Guess the word before you run out of attempts.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Status</span>
+            <strong id="status">Playing</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Remaining</span>
+            <strong id="remaining">6</strong>
+          </div>
+        </div>
+
+        <div class="stat-card wrong-card">
+          <span class="label">Wrong Letters</span>
+          <strong id="wrong">-</strong>
+        </div>
+
+        <button id="restart" class="primary-btn" type="button">New Word</button>
+      </section>
+
+      <section class="board-wrap">
+        <div class="stage">
+          <div class="word-mask" id="mask" aria-label="Hidden word">_ _ _ _</div>
+          <div class="hint" id="result-hint">Type a letter or click the keyboard.</div>
+          <div class="keyboard" id="keyboard" aria-label="Letter keyboard"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
