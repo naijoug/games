@@ -176,7 +176,7 @@ Repeat the color sequence as it grows each round.
 - Local PvP (same-device two-player)
 - Human vs AI (alpha-beta search with selectable depth)
 - Puzzle Challenge (`mate in 1`, `mate in 2`, `mate in 3`)
-- Classic Game Lessons (annotated move playback)
+- Classic Game Lessons (annotated move playback, categorized by chapter)
 
 ### Controls
 
@@ -188,4 +188,6 @@ Repeat the color sequence as it grows each round.
 ### Notes
 
 - Bundles a local `chess.js` browser build for legal moves, check/checkmate and notation
-- Pawn promotion defaults to queen (`Q`)
+- Pawn promotion supports piece selection (`Q / R / B / N`)
+- Puzzle mode includes progressive hints, scoring, stars/grades, and local progress persistence (`localStorage`)
+- Lesson mode tracks local study progress and supports chapter filtering (including Capablanca / Fischer / Kasparov teaching fragments)

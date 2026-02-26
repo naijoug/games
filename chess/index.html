@@ -77,6 +77,11 @@
             <button id="ai-start-new" class="btn btn-primary" type="button">新对局</button>
             <button id="ai-force-move" class="btn" type="button">AI 立即走棋</button>
           </div>
+          <div class="ai-progress-wrap" aria-hidden="true">
+            <div id="ai-progress-track" class="ai-progress-track">
+              <div id="ai-progress-bar" class="ai-progress-bar"></div>
+            </div>
+          </div>
           <p id="ai-message" class="hint-line"></p>
         </section>
 
@@ -100,6 +105,30 @@
             <button id="puzzle-start" class="btn btn-primary" type="button">开始/重开</button>
             <button id="puzzle-next" class="btn" type="button">下一题</button>
           </div>
+          <div class="actions-row">
+            <button id="puzzle-hint" class="btn" type="button">提示</button>
+            <button id="puzzle-clear-stats" class="btn" type="button">清除本题记录</button>
+          </div>
+          <div class="mini-stats-grid">
+            <div class="mini-stat">
+              <span>本次错误</span>
+              <strong id="puzzle-run-mistakes">0</strong>
+            </div>
+            <div class="mini-stat">
+              <span>提示次数</span>
+              <strong id="puzzle-run-hints">0</strong>
+            </div>
+            <div class="mini-stat">
+              <span>最佳评分</span>
+              <strong id="puzzle-best-score">-</strong>
+            </div>
+            <div class="mini-stat">
+              <span>星级</span>
+              <strong id="puzzle-best-stars">-</strong>
+            </div>
+          </div>
+          <p id="puzzle-score-result" class="hint-line"></p>
+          <p id="puzzle-hint-text" class="hint-line"></p>
           <p id="puzzle-goal" class="hint-line"></p>
           <p id="puzzle-message" class="hint-line"></p>
         </section>
@@ -108,6 +137,10 @@
           <div class="group-head">
             <h2>经典棋局讲解</h2>
           </div>
+          <label class="field">
+            <span>章节分类</span>
+            <select id="lesson-section-filter"></select>
+          </label>
           <label class="field">
             <span>棋局</span>
             <select id="lesson-select"></select>
@@ -118,6 +151,7 @@
             <button id="lesson-next" class="btn btn-primary" type="button">下一步</button>
           </div>
           <p id="lesson-progress" class="hint-line"></p>
+          <p id="lesson-meta" class="hint-line"></p>
           <div class="lesson-note" id="lesson-note"></div>
         </section>
 
@@ -126,14 +160,15 @@
 
       <section class="board-stage">
         <div class="board-shell">
+          <div id="move-anim-layer" class="move-anim-layer" aria-hidden="true"></div>
           <div id="board" class="board" aria-label="国际象棋棋盘"></div>
           <div id="promotion-picker" class="promotion-picker glass hidden" role="dialog" aria-modal="false" aria-label="选择兵升变棋子">
             <h3>选择升变棋子</h3>
             <div class="promo-grid">
-              <button type="button" class="promo-btn" data-promotion="q">皇后</button>
-              <button type="button" class="promo-btn" data-promotion="r">车</button>
-              <button type="button" class="promo-btn" data-promotion="b">象</button>
-              <button type="button" class="promo-btn" data-promotion="n">马</button>
+              <button type="button" class="promo-btn" data-promotion="q"><span class="promo-glyph"></span><span>皇后</span></button>
+              <button type="button" class="promo-btn" data-promotion="r"><span class="promo-glyph"></span><span>车</span></button>
+              <button type="button" class="promo-btn" data-promotion="b"><span class="promo-glyph"></span><span>象</span></button>
+              <button type="button" class="promo-btn" data-promotion="n"><span class="promo-glyph"></span><span>马</span></button>
             </div>
             <button type="button" id="promotion-cancel" class="btn">取消</button>
           </div>
@@ -163,6 +198,7 @@
     <script src="./vendor/chess.min.js"></script>
     <script src="./content.js"></script>
     <script src="./mode-core.js"></script>
+    <script src="./progress-core.js"></script>
     <script src="./ai.js"></script>
     <script src="./game-core.js"></script>
     <script src="./app.js"></script>

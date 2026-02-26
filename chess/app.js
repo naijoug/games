@@ -1,8 +1,9 @@
-/* global ChessContent, ChessModeCore, ChessGameCore, ChessAI */
+/* global ChessContent, ChessModeCore, ChessGameCore, ChessProgressCore, ChessAI */
 (function () {
   const content = typeof ChessContent !== "undefined" ? ChessContent : null;
   const modeCore = typeof ChessModeCore !== "undefined" ? ChessModeCore : null;
   const gameCore = typeof ChessGameCore !== "undefined" ? ChessGameCore : null;
+  const progressCore = typeof ChessProgressCore !== "undefined" ? ChessProgressCore : null;
   const aiCore = typeof ChessAI !== "undefined" ? ChessAI : null;
 
   const els = {
@@ -21,22 +22,35 @@
     aiDepth: document.getElementById("ai-depth"),
     aiStartNew: document.getElementById("ai-start-new"),
     aiForceMove: document.getElementById("ai-force-move"),
+    aiProgressTrack: document.getElementById("ai-progress-track"),
+    aiProgressBar: document.getElementById("ai-progress-bar"),
     aiMessage: document.getElementById("ai-message"),
     puzzlePanel: document.getElementById("panel-puzzle"),
     puzzleTier: document.getElementById("puzzle-tier"),
     puzzleIndex: document.getElementById("puzzle-index"),
     puzzleStart: document.getElementById("puzzle-start"),
     puzzleNext: document.getElementById("puzzle-next"),
+    puzzleHint: document.getElementById("puzzle-hint"),
+    puzzleClearStats: document.getElementById("puzzle-clear-stats"),
+    puzzleRunMistakes: document.getElementById("puzzle-run-mistakes"),
+    puzzleRunHints: document.getElementById("puzzle-run-hints"),
+    puzzleBestScore: document.getElementById("puzzle-best-score"),
+    puzzleBestStars: document.getElementById("puzzle-best-stars"),
+    puzzleScoreResult: document.getElementById("puzzle-score-result"),
+    puzzleHintText: document.getElementById("puzzle-hint-text"),
     puzzleGoal: document.getElementById("puzzle-goal"),
     puzzleMessage: document.getElementById("puzzle-message"),
     lessonPanel: document.getElementById("panel-lesson"),
+    lessonSectionFilter: document.getElementById("lesson-section-filter"),
     lessonSelect: document.getElementById("lesson-select"),
     lessonReset: document.getElementById("lesson-reset"),
     lessonPrev: document.getElementById("lesson-prev"),
     lessonNext: document.getElementById("lesson-next"),
     lessonProgress: document.getElementById("lesson-progress"),
+    lessonMeta: document.getElementById("lesson-meta"),
     lessonNote: document.getElementById("lesson-note"),
     errorBanner: document.getElementById("error-banner"),
+    moveAnimLayer: document.getElementById("move-anim-layer"),
     board: document.getElementById("board"),
     promotionPicker: document.getElementById("promotion-picker"),
     promotionButtons: Array.from(document.querySelectorAll("[data-promotion]")),
@@ -45,10 +59,10 @@
     historyCaption: document.getElementById("history-caption"),
   };
 
-  if (!content || !modeCore || !gameCore || !aiCore) {
+  if (!content || !modeCore || !gameCore || !progressCore || !aiCore) {
     if (els.errorBanner) {
       els.errorBanner.classList.remove("hidden");
-      els.errorBanner.textContent = "脚本加载失败：缺少内容/模式/AI/棋盘模块。";
+      els.errorBanner.textContent = "脚本加载失败：缺少内容/模式/进度/AI/棋盘模块。";
     }
     return;
   }
@@ -68,6 +82,9 @@
     lastMoveSquares: new Set(),
     modeState: modeCore.createModeState(),
     lessonState: modeCore.createLessonState(LESSONS),
+    lessonFilter: "all",
+    progress: progressCore.createEmptyProgress(),
+    progressStorageOk: true,
     ai: {
       side: "b",
       depth: 3,
@@ -75,17 +92,24 @@
       requestToken: 0,
       lastDecisionText: "",
       lastThinkMs: 0,
+      thinkingStartedAt: 0,
     },
     puzzleRuntime: {
       cursor: 0,
       status: "idle",
       message: "",
+      run: null,
+      revealedHints: 0,
+      hintText: "",
+      scoreSummaryText: "",
+      lastResult: null,
     },
     pendingPromotion: null,
     ui: {
       generalMessage: "提示：支持翻转棋盘与兵升变选择。",
       errorMessage: "",
       boardOrientation: "w",
+      queuedMoveAnimation: null,
     },
   };
 
@@ -94,7 +118,41 @@
   }
 
   function getActiveLesson() {
-    return LESSONS.find((lesson) => lesson.id === state.lessonState.activeLessonId) || LESSONS[0] || null;
+    const filtered = getFilteredLessons();
+    return filtered.find((lesson) => lesson.id === state.lessonState.activeLessonId) || filtered[0] || null;
+  }
+
+  function getFilteredLessons() {
+    if (state.lessonFilter === "all") {
+      return LESSONS.slice();
+    }
+    return LESSONS.filter(function (lesson) {
+      return lesson.section === state.lessonFilter;
+    });
+  }
+
+  function getLocalStorageSafe() {
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return window.localStorage;
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
+  }
+
+  function loadProgressState() {
+    const storage = getLocalStorageSafe();
+    state.progress = progressCore.loadProgress(storage);
+    state.progressStorageOk = Boolean(storage);
+  }
+
+  function saveProgressState() {
+    const storage = getLocalStorageSafe();
+    const ok = progressCore.saveProgress(storage, state.progress);
+    state.progressStorageOk = ok || storage == null;
+    return ok;
   }
 
   function getPuzzleTierList() {
@@ -104,6 +162,131 @@
   function getActivePuzzle() {
     const list = getPuzzleTierList();
     return list[state.modeState.puzzle.currentIndex] || null;
+  }
+
+  function getActivePuzzleRecord() {
+    const puzzle = getActivePuzzle();
+    if (!puzzle) {
+      return null;
+    }
+    return progressCore.getPuzzleRecord(state.progress, puzzle.id);
+  }
+
+  function startPuzzleRun(puzzle) {
+    state.puzzleRuntime.run = puzzle ? progressCore.beginPuzzleRun(puzzle) : null;
+    state.puzzleRuntime.revealedHints = 0;
+    state.puzzleRuntime.hintText = "";
+    state.puzzleRuntime.scoreSummaryText = "";
+    state.puzzleRuntime.lastResult = null;
+  }
+
+  function finalizePuzzleRunIfNeeded(options) {
+    const puzzle = getActivePuzzle();
+    const run = state.puzzleRuntime.run;
+    if (!puzzle || !run) {
+      return null;
+    }
+    if (run.finishedAt) {
+      return run;
+    }
+    const result = progressCore.finalizePuzzleRun(puzzle, run, Date.now(), options || {});
+    state.puzzleRuntime.run = result;
+    state.puzzleRuntime.lastResult = result;
+    state.progress = progressCore.applyPuzzleResult(state.progress, puzzle, result);
+    saveProgressState();
+    return result;
+  }
+
+  function closePuzzleRunAsFailedIfActive() {
+    if (currentMode() !== "puzzle") {
+      return;
+    }
+    if (state.puzzleRuntime.status === "solved") {
+      return;
+    }
+    const run = state.puzzleRuntime.run;
+    if (!run || run.finishedAt) {
+      return;
+    }
+    finalizePuzzleRunIfNeeded({ solved: false });
+  }
+
+  function revealNextPuzzleHint() {
+    const puzzle = getActivePuzzle();
+    if (!puzzle || !state.puzzleRuntime.run) {
+      return;
+    }
+    const hints = Array.isArray(puzzle.hints) ? puzzle.hints : [];
+    if (hints.length === 0) {
+      state.puzzleRuntime.hintText = "该题暂无提示。";
+      return;
+    }
+    const nextIndex = Math.min(state.puzzleRuntime.revealedHints, hints.length - 1);
+    const alreadyMax = state.puzzleRuntime.revealedHints >= hints.length;
+    if (!alreadyMax) {
+      state.puzzleRuntime.run = progressCore.recordPuzzleHint(state.puzzleRuntime.run);
+      state.puzzleRuntime.revealedHints += 1;
+    }
+    state.puzzleRuntime.hintText = `提示 ${nextIndex + 1}/${hints.length}：${hints[nextIndex]}`;
+  }
+
+  function starText(count) {
+    if (!count || count <= 0) {
+      return "-";
+    }
+    return "★".repeat(count) + "☆".repeat(Math.max(0, 3 - count));
+  }
+
+  function sectionLabel(section) {
+    const map = {
+      "opening-attack": "开局进攻",
+      "tactical-combination": "战术组合",
+      "initiative-attack": "主动进攻",
+      "positional-play": "位置运营",
+      "endgame-technique": "残局技巧",
+    };
+    return map[section] || section;
+  }
+
+  function queueMoveAnimation(payload) {
+    state.ui.queuedMoveAnimation = payload;
+  }
+
+  function getSquareButton(square) {
+    return els.board.querySelector(`button[data-square="${square}"]`);
+  }
+
+  function playQueuedMoveAnimation() {
+    const payload = state.ui.queuedMoveAnimation;
+    if (!payload || !els.moveAnimLayer) {
+      state.ui.queuedMoveAnimation = null;
+      return;
+    }
+    state.ui.queuedMoveAnimation = null;
+    const fromBtn = getSquareButton(payload.from);
+    const toBtn = getSquareButton(payload.to);
+    if (!fromBtn || !toBtn) {
+      return;
+    }
+    const shellRect = els.moveAnimLayer.getBoundingClientRect();
+    const fromRect = fromBtn.getBoundingClientRect();
+    const toRect = toBtn.getBoundingClientRect();
+    const size = Math.min(fromRect.width, fromRect.height);
+    const pieceEl = document.createElement("div");
+    pieceEl.className = "move-anim-piece";
+    pieceEl.textContent = payload.glyph || "";
+    pieceEl.style.setProperty("--size", `${size}px`);
+    pieceEl.style.setProperty("--from-x", `${fromRect.left - shellRect.left}px`);
+    pieceEl.style.setProperty("--from-y", `${fromRect.top - shellRect.top}px`);
+    pieceEl.style.setProperty("--to-x", `${toRect.left - shellRect.left}px`);
+    pieceEl.style.setProperty("--to-y", `${toRect.top - shellRect.top}px`);
+    els.moveAnimLayer.appendChild(pieceEl);
+    window.requestAnimationFrame(function () {
+      pieceEl.classList.add("is-enter");
+    });
+    window.setTimeout(function () {
+      pieceEl.remove();
+    }, 220);
   }
 
   function setError(message) {
@@ -161,19 +344,26 @@
   }
 
   function createFreshGame() {
+    closePuzzleRunAsFailedIfActive();
     clearSelection();
     clearPendingPromotion();
     state.chess = gameCore.createEngine();
     syncLastMoveSquares();
+    state.puzzleRuntime.run = null;
   }
 
   function resetPuzzleTracking() {
     state.puzzleRuntime.cursor = 0;
     state.puzzleRuntime.status = "idle";
     state.puzzleRuntime.message = "";
+    state.puzzleRuntime.hintText = "";
+    state.puzzleRuntime.scoreSummaryText = "";
+    state.puzzleRuntime.lastResult = null;
+    state.puzzleRuntime.revealedHints = 0;
   }
 
   function loadPuzzlePosition(indexOverride) {
+    closePuzzleRunAsFailedIfActive();
     const tier = state.modeState.puzzle.tier;
     const list = PUZZLE_TIERS[tier] || [];
     const currentIndex = Number.isInteger(indexOverride) ? indexOverride : state.modeState.puzzle.currentIndex;
@@ -196,6 +386,7 @@
       syncLastMoveSquares();
       state.puzzleRuntime.status = "active";
       state.puzzleRuntime.message = "按教学线路完成将杀。点击棋子开始。";
+      startPuzzleRun(puzzle);
       if (typeof state.chess.turn === "function" && state.chess.turn() !== puzzle.sideToMove) {
         state.puzzleRuntime.message = "题库配置提示：轮到方与题目设定不一致。";
       }
@@ -218,6 +409,14 @@
     try {
       state.chess = gameCore.replayLesson(lesson, state.lessonState.stepIndex);
       syncLastMoveSquares();
+      state.progress = progressCore.applyLessonProgress(
+        state.progress,
+        lesson.id,
+        state.lessonState.stepIndex,
+        lesson.moves.length,
+        Date.now()
+      );
+      saveProgressState();
     } catch (error) {
       state.chess = null;
       setError(`讲解棋局解析失败：${error.message}`);
@@ -268,6 +467,9 @@
     if (!MODE_LABELS[mode]) {
       return;
     }
+    if (currentMode() === "puzzle" && mode !== "puzzle") {
+      closePuzzleRunAsFailedIfActive();
+    }
     cancelAiThinking();
     clearSelection();
     clearPendingPromotion();
@@ -275,6 +477,9 @@
     state.modeState = modeCore.setGameMode(state.modeState, mode);
     state.ai.lastDecisionText = "";
     syncBoardOrientationForContext();
+    state.progress.profile.lastPlayedMode = mode;
+    state.progress.profile.updatedAt = Date.now();
+    saveProgressState();
 
     try {
       if (mode === "puzzle") {
@@ -378,6 +583,7 @@
           from: fromSquare,
           to: toSquare,
           options: options.length > 0 ? options : ["q"],
+          color: typeof state.chess.turn === "function" ? state.chess.turn() : "w",
         };
         render();
         return "pending";
@@ -397,8 +603,17 @@
       moveSpec.promotion = chosen.promotion;
     }
 
+    const movingGlyph =
+      gameCore.UNICODE_PIECES[
+        `${(chosen.color || (typeof state.chess.turn === "function" ? state.chess.turn() : "w"))}${
+          moveSpec.promotion || chosen.piece || ""
+        }`
+      ] || "";
+    queueMoveAnimation({ from: chosen.from, to: chosen.to, glyph: movingGlyph });
+
     const result = state.chess.move(moveSpec);
     if (!result) {
+      queueMoveAnimation(null);
       return false;
     }
 
@@ -437,9 +652,17 @@
     }
 
     if (!gameCore.sanMatches(result.san, expected.san)) {
+      if (state.puzzleRuntime.run && !state.puzzleRuntime.run.finishedAt) {
+        state.puzzleRuntime.run = progressCore.recordPuzzleMistake(state.puzzleRuntime.run);
+      }
       state.chess.undo();
       syncLastMoveSquares();
-      state.puzzleRuntime.message = `这步不是题解线路。目标尝试：${expected.san}`;
+      const mistakes = state.puzzleRuntime.run ? state.puzzleRuntime.run.mistakes : 0;
+      const puzzleHints = Array.isArray(puzzle.hints) ? puzzle.hints : [];
+      if (mistakes >= 2 && state.puzzleRuntime.revealedHints < puzzleHints.length) {
+        revealNextPuzzleHint();
+      }
+      state.puzzleRuntime.message = `这步不是题解线路（错误 ${mistakes} 次）。请继续尝试。`;
       render();
       return;
     }
@@ -469,6 +692,10 @@
     if (state.puzzleRuntime.cursor >= puzzle.solutionLine.length) {
       state.puzzleRuntime.status = "solved";
       const checkmate = gameCore.isCheckmate(state.chess);
+      const finalRun = finalizePuzzleRunIfNeeded({ solved: true });
+      if (finalRun) {
+        state.puzzleRuntime.scoreSummaryText = `得分 ${finalRun.score}｜${starText(finalRun.stars)}｜评级 ${finalRun.grade}`;
+      }
       state.puzzleRuntime.message = checkmate ? "过关成功：完成将杀！" : "线路完成。";
     }
 
@@ -499,6 +726,7 @@
     }
 
     state.ai.thinking = true;
+    state.ai.thinkingStartedAt = Date.now();
     const token = ++state.ai.requestToken;
     const depth = state.ai.depth;
     render();
@@ -526,6 +754,7 @@
         if (!best) {
           state.ai.lastDecisionText = "AI 无可走着法。";
           state.ai.thinking = false;
+          state.ai.thinkingStartedAt = 0;
           render();
           return;
         }
@@ -536,6 +765,7 @@
           promotion: best.promotion,
         });
         state.ai.thinking = false;
+        state.ai.thinkingStartedAt = 0;
 
         if (!move) {
           state.ai.lastDecisionText = "AI 走子失败（非法着法）。";
@@ -548,6 +778,7 @@
         render();
       } catch (error) {
         state.ai.thinking = false;
+        state.ai.thinkingStartedAt = 0;
         setError(`AI 计算失败：${error.message}`);
         render();
       }
@@ -702,6 +933,8 @@
 
       els.board.appendChild(btn);
     }
+
+    playQueuedMoveAnimation();
   }
 
   function buildEmptySquares() {
@@ -751,11 +984,19 @@
   function renderAiPanel() {
     els.aiSide.value = state.ai.side;
     els.aiDepth.value = String(state.ai.depth);
-    const timing = state.ai.lastThinkMs > 0 ? `，耗时 ${state.ai.lastThinkMs}ms` : "";
+    const liveMs = state.ai.thinking && state.ai.thinkingStartedAt ? Date.now() - state.ai.thinkingStartedAt : 0;
+    const timingMs = state.ai.thinking ? liveMs : state.ai.lastThinkMs;
+    const timing = timingMs > 0 ? `，耗时 ${Math.max(0, Math.round(timingMs))}ms` : "";
     const base = state.ai.thinking ? `AI 正在搜索（深度 ${state.ai.depth}）...` : state.ai.lastDecisionText;
     els.aiMessage.textContent = base || "可切换执子与深度后开始新对局。";
     if (!state.ai.thinking && state.ai.lastDecisionText && timing) {
       els.aiMessage.textContent += timing;
+    }
+    if (state.ai.thinking && timing) {
+      els.aiMessage.textContent += timing;
+    }
+    if (els.aiProgressTrack) {
+      els.aiProgressTrack.classList.toggle("is-thinking", state.ai.thinking);
     }
     els.aiForceMove.disabled = !state.chess || currentMode() !== "ai";
   }
@@ -772,33 +1013,104 @@
     fillSelect(els.puzzleIndex, options, String(state.modeState.puzzle.currentIndex));
 
     const puzzle = getActivePuzzle();
+    const record = getActivePuzzleRecord();
+    const run = state.puzzleRuntime.run;
+    if (els.puzzleRunMistakes) {
+      els.puzzleRunMistakes.textContent = String((run && run.mistakes) || 0);
+    }
+    if (els.puzzleRunHints) {
+      els.puzzleRunHints.textContent = String((run && run.hintsUsed) || 0);
+    }
+    if (els.puzzleBestScore) {
+      els.puzzleBestScore.textContent = record && record.bestScore ? String(record.bestScore) : "-";
+    }
+    if (els.puzzleBestStars) {
+      els.puzzleBestStars.textContent = record && record.bestStars ? starText(record.bestStars) : "-";
+    }
+    if (els.puzzleScoreResult) {
+      els.puzzleScoreResult.textContent = state.puzzleRuntime.scoreSummaryText || "";
+    }
+    if (els.puzzleHintText) {
+      els.puzzleHintText.textContent = state.puzzleRuntime.hintText || "";
+    }
+
     if (!puzzle) {
       els.puzzleGoal.textContent = "当前分类暂无题目。";
       els.puzzleMessage.textContent = "";
+      if (els.puzzleHint) {
+        els.puzzleHint.disabled = true;
+      }
+      if (els.puzzleClearStats) {
+        els.puzzleClearStats.disabled = true;
+      }
       els.puzzleNext.disabled = true;
       return;
     }
 
     els.puzzleGoal.textContent = `${puzzle.goalLabel}｜${puzzle.title}：${puzzle.intro}`;
     els.puzzleMessage.textContent = state.puzzleRuntime.message || "点击开始。";
+    if (els.puzzleHint) {
+      const hints = Array.isArray(puzzle.hints) ? puzzle.hints : [];
+      els.puzzleHint.disabled =
+        currentMode() !== "puzzle" ||
+        state.puzzleRuntime.status === "solved" ||
+        !state.puzzleRuntime.run ||
+        (hints.length > 0 && state.puzzleRuntime.revealedHints >= hints.length);
+    }
+    if (els.puzzleClearStats) {
+      els.puzzleClearStats.disabled = !record || record.attempts <= 0;
+    }
     els.puzzleNext.disabled = list.length <= 1;
   }
 
   function renderLessonPanel() {
-    const options = LESSONS.map(function (lesson) {
-      return { value: lesson.id, label: lesson.title };
+    const allSections = ["all"].concat(
+      Array.from(
+        new Set(
+          LESSONS.map(function (lesson) {
+            return lesson.section;
+          })
+        )
+      )
+    );
+    fillSelect(
+      els.lessonSectionFilter,
+      allSections.map(function (section) {
+        return { value: section, label: section === "all" ? "全部章节" : sectionLabel(section) };
+      }),
+      state.lessonFilter
+    );
+
+    const filteredLessons = getFilteredLessons();
+    if (!filteredLessons.some((lesson) => lesson.id === state.lessonState.activeLessonId)) {
+      const first = filteredLessons[0] || LESSONS[0] || null;
+      state.lessonState = {
+        activeLessonId: first ? first.id : null,
+        stepIndex: 0,
+      };
+    }
+
+    const options = filteredLessons.map(function (lesson) {
+      return { value: lesson.id, label: `[${sectionLabel(lesson.section)}] ${lesson.title}` };
     });
     fillSelect(els.lessonSelect, options, state.lessonState.activeLessonId);
 
     const lesson = getActiveLesson();
     if (!lesson) {
       els.lessonProgress.textContent = "暂无讲解棋局。";
+      if (els.lessonMeta) {
+        els.lessonMeta.textContent = "";
+      }
       els.lessonNote.textContent = "";
       return;
     }
 
     const step = state.lessonState.stepIndex;
+    const lessonRecord = progressCore.getLessonRecord(state.progress, lesson.id);
     els.lessonProgress.textContent = `进度：第 ${step}/${lesson.moves.length} 半回合`;
+    if (els.lessonMeta) {
+      els.lessonMeta.textContent = `章节：${sectionLabel(lesson.section)}｜${lesson.players}｜${lesson.era}｜已学到 ${lessonRecord.maxStepReached}/${lesson.moves.length}`;
+    }
     const currentMove = step > 0 ? lesson.moves[step - 1] : null;
     els.lessonNote.textContent = (currentMove && currentMove.note) || (step === 0 ? lesson.summary : `着法：${currentMove.san}`);
 
@@ -812,6 +1124,9 @@
     els.resetCurrent.disabled = !state.chess && currentMode() !== "puzzle" && currentMode() !== "lesson";
     if (els.flipBoard) {
       els.flipBoard.textContent = getBoardOrientation() === "w" ? "翻转棋盘（白方视角）" : "翻转棋盘（黑方视角）";
+    }
+    if (!state.progressStorageOk) {
+      els.generalMessage.textContent = `${els.generalMessage.textContent}（本地存档不可用）`;
     }
   }
 
@@ -829,6 +1144,10 @@
     for (const button of els.promotionButtons) {
       const code = button.dataset.promotion;
       button.disabled = !pending.options.includes(code);
+      const glyphSpan = button.querySelector(".promo-glyph");
+      if (glyphSpan) {
+        glyphSpan.textContent = gameCore.UNICODE_PIECES[`${pending.color}${code}`] || "";
+      }
     }
   }
 
@@ -969,6 +1288,40 @@
       render();
     });
 
+    els.puzzleHint.addEventListener("click", function () {
+      if (currentMode() !== "puzzle") {
+        return;
+      }
+      revealNextPuzzleHint();
+      render();
+    });
+
+    els.puzzleClearStats.addEventListener("click", function () {
+      const puzzle = getActivePuzzle();
+      if (!puzzle) {
+        return;
+      }
+      const next = { ...state.progress, puzzles: { ...state.progress.puzzles } };
+      delete next.puzzles[puzzle.id];
+      state.progress = next;
+      saveProgressState();
+      state.puzzleRuntime.scoreSummaryText = "";
+      render();
+    });
+
+    els.lessonSectionFilter.addEventListener("change", function () {
+      state.lessonFilter = els.lessonSectionFilter.value || "all";
+      const first = getFilteredLessons()[0] || LESSONS[0] || null;
+      state.lessonState = {
+        activeLessonId: first ? first.id : null,
+        stepIndex: 0,
+      };
+      if (currentMode() === "lesson") {
+        loadLessonPosition();
+      }
+      render();
+    });
+
     els.lessonSelect.addEventListener("change", function () {
       state.lessonState = modeCore.selectLesson(state.lessonState, LESSONS, els.lessonSelect.value);
       if (currentMode() === "lesson") {
@@ -1018,6 +1371,8 @@
 
   function init() {
     bindEvents();
+    loadProgressState();
+    state.lessonFilter = "all";
     syncBoardOrientationForContext();
     try {
       createFreshGame();
