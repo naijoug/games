@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>中国象棋小游戏</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="xiangqi-page">
+      <section class="panel panel-main">
+        <div class="heading">
+          <div>
+            <p class="eyebrow">Mini Games</p>
+            <h1>中国象棋</h1>
+          </div>
+          <a class="back-link" href="../">返回游戏列表</a>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board-meta top-meta">
+            <span>黑方</span>
+            <span id="top-side-status">等待</span>
+          </div>
+          <div id="board" class="board" role="grid" aria-label="中国象棋棋盘"></div>
+          <div class="river-label" aria-hidden="true">
+            <span>楚 河</span>
+            <span>汉 界</span>
+          </div>
+          <div class="board-meta bottom-meta">
+            <span>红方</span>
+            <span id="bottom-side-status">等待</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel panel-side">
+        <section class="card">
+          <h2>对局设置</h2>
+          <label>
+            模式
+            <select id="mode-select">
+              <option value="pvp">双人对弈</option>
+              <option value="pve">人机对弈</option>
+            </select>
+          </label>
+          <label>
+            AI 难度
+            <select id="level-select">
+              <option value="easy">简单</option>
+              <option value="medium" selected>中等</option>
+              <option value="hard">困难</option>
+            </select>
+          </label>
+          <label>
+            我方执子
+            <select id="human-side-select">
+              <option value="red">我方执红</option>
+              <option value="black">我方执黑</option>
+            </select>
+          </label>
+          <p class="hint">修改模式、难度或执子后会自动重新开始。</p>
+        </section>
+
+        <section class="card status-card">
+          <h2>对局状态</h2>
+          <div class="status-line"><span>当前行棋</span><strong id="turn-text">红方</strong></div>
+          <div class="status-line"><span>局面状态</span><strong id="status-text">进行中</strong></div>
+          <div class="status-line"><span>判定说明</span><strong id="reason-text">-</strong></div>
+          <div class="status-line"><span>AI 状态</span><strong id="ai-text">待机</strong></div>
+        </section>
+
+        <section class="card actions">
+          <button id="undo-btn" type="button">悔棋</button>
+          <button id="restart-btn" type="button">重新开始</button>
+        </section>
+
+        <section class="card tips">
+          <h2>操作说明</h2>
+          <p>点击己方棋子进行选中，再点击高亮位置落子。</p>
+          <p>人机模式下轮到 AI 时会锁定棋盘输入。</p>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./game-core.js"></script>
+    <script src="./ai.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
