@@ -1,0 +1,290 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "type": "frame",
+      "id": "VnXNP",
+      "x": 0,
+      "y": 0,
+      "name": "Snake Terminal",
+      "width": 1440,
+      "height": 900,
+      "fill": "#0A0A0A",
+      "children": [
+        {
+          "type": "frame",
+          "id": "LbMiw",
+          "name": "sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "#2a2a2a"
+          },
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            32,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "pwTLD",
+              "name": "logo",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Xs6pm",
+                  "fill": "#10B981",
+                  "content": ">",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "Au1z0",
+                  "fill": "#FAFAFA",
+                  "content": "terminal_games",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 18,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "4B2Q5",
+              "name": "nav",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "WJupG",
+                  "width": "fill_container",
+                  "fill": "#1F1F1F",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "8uREY",
+                      "fill": "#10B981",
+                      "content": "$ snake",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "HIxCi",
+          "name": "main_content",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": 40,
+          "children": [
+            {
+              "type": "frame",
+              "id": "vwyY2",
+              "name": "header",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "cPZh3",
+                  "name": "titleContainer",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ayGwy",
+                      "fill": "#10B981",
+                      "content": ">",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 32,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TkfoK",
+                      "fill": "#FFFFFF",
+                      "content": "game_snake",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 28,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "dNGjH",
+                  "fill": "#6B7280",
+                  "content": "// eat_the_food_and_grow!",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "YQewS",
+              "name": "game_area",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "2ZmPB",
+                  "name": "grid",
+                  "fill": "#0F0F0F",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Bi9P5",
+                      "name": "r1",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "0sxNQ",
+                          "fill": "#10B981",
+                          "content": "[S]",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "6hlcB",
+                          "fill": "#10B981",
+                          "content": "[S]",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bQFac",
+                          "fill": "#10B981",
+                          "content": "[S]",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "GL2jK",
+                          "fill": "#2a2a2a",
+                          "content": " . ",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Z7lCu",
+                          "fill": "#F59E0B",
+                          "content": "[@]",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "accent_amber": {
+      "type": "color",
+      "value": "#F59E0B"
+    },
+    "accent_cyan": {
+      "type": "color",
+      "value": "#06B6D4"
+    },
+    "accent_green": {
+      "type": "color",
+      "value": "#10B981"
+    },
+    "bg_active": {
+      "type": "color",
+      "value": "#1F1F1F"
+    },
+    "bg_elevated": {
+      "type": "color",
+      "value": "#0F0F0F"
+    },
+    "bg_page": {
+      "type": "color",
+      "value": "#0A0A0A"
+    },
+    "border_primary": {
+      "type": "color",
+      "value": "#2a2a2a"
+    },
+    "font_mono_text": {
+      "type": "string",
+      "value": "IBM Plex Mono"
+    },
+    "font_mono_ui": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    },
+    "text_emphasis": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text_primary": {
+      "type": "color",
+      "value": "#FAFAFA"
+    },
+    "text_secondary": {
+      "type": "color",
+      "value": "#6B7280"
+    },
+    "text_tertiary": {
+      "type": "color",
+      "value": "#4B5563"
+    }
+  }
+}

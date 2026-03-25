@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Games - chess</title>
+  <link rel="stylesheet" href="../../src/style.css">
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    /* Global Terminal Overrides for v1 */
+    body { margin: 0; }
+    
+    /* Strip out old backgrounds and colors */
+    .page, .layout, main, .board-wrap, .panel, .glass, .glass-sub { 
+      background: transparent !important; 
+      color: var(--text-primary) !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    .board, #board, canvas {
+      border: 1px solid var(--border-primary) !important;
+      background: var(--bg-elevated) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    button, .btn, .primary-btn {
+      background: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--accent-green) !important;
+      font-family: var(--font-mono-ui) !important;
+      cursor: pointer !important;
+      border-radius: 0 !important;
+      text-transform: lowercase;
+    }
+    
+    button:before { content: "["; color: var(--text-secondary); }
+    button:after { content: "]"; color: var(--text-secondary); }
+
+    button:hover { border-color: var(--accent-green) !important; }
+    
+    /* Typography Overrides */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-mono-ui) !important;
+      color: var(--text-emphasis) !important;
+      text-transform: lowercase;
+    }
+
+    /* Strip rounded corners everywhere */
+    * { border-radius: 0 !important; }
+    
+    /* Make game-area take full width and height */
+    .game-area-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <span class="logo-prompt">&gt;</span>
+      <span class="logo-text">terminal_games</span>
+    </div>
+    <nav class="nav">
+      <a href="../2048/index.html" class="nav-item ">$ 2048</a>
+      <a href="../chess/index.html" class="nav-item active">$ chess</a>
+      <a href="../connect4/index.html" class="nav-item ">$ connect4</a>
+      <a href="../hangman/index.html" class="nav-item ">$ hangman</a>
+      <a href="../memory/index.html" class="nav-item ">$ memory</a>
+      <a href="../minesweeper/index.html" class="nav-item ">$ minesweeper</a>
+      <a href="../simon/index.html" class="nav-item ">$ simon</a>
+      <a href="../snake/index.html" class="nav-item ">$ snake</a>
+      <a href="../tictactoe/index.html" class="nav-item ">$ tictactoe</a>
+      <a href="../xiangqi/index.html" class="nav-item ">$ xiangqi</a>
+    </nav>
+  </div>
+  <div class="main-content">
+    <div class="header">
+      <div class="title-container">
+        <span class="title-prompt">&gt;</span>
+        <span class="title-text">game_chess</span>
+      </div>
+      <div class="subtitle">// initialized</div>
+    </div>
+    <div class="game-area">
+      <div class="game-area-wrapper">
+        
+    <main class="layout">
+      <section class="side-panel glass">
+        <div class="hero">
+          <p class="eyebrow">Chess Arena</p>
+          <h1>国际象棋</h1>
+          <p class="hero-desc">
+            支持双人对弈、人机对弈（进阶 AI）、一步杀/两步杀/三步杀闯关，以及经典棋局讲解模式。
+          </p>
+        </div>
+
+        <div class="mode-switch" id="mode-switch" aria-label="模式切换">
+          <button type="button" data-mode="pvp" class="mode-btn is-active">双人对弈</button>
+          <button type="button" data-mode="ai" class="mode-btn">人机对弈</button>
+          <button type="button" data-mode="puzzle" class="mode-btn">闯关模式</button>
+          <button type="button" data-mode="lesson" class="mode-btn">棋局讲解</button>
+        </div>
+
+        <div class="status-grid">
+          <div class="stat-card">
+            <span>当前模式</span>
+            <strong id="mode-label">双人对弈</strong>
+          </div>
+          <div class="stat-card">
+            <span>轮到</span>
+            <strong id="turn-label">白方</strong>
+          </div>
+          <div class="stat-card wide">
+            <span>状态</span>
+            <strong id="status-main">进行中</strong>
+            <small id="status-detail">白方行棋</small>
+          </div>
+        </div>
+
+        <div class="control-group glass-sub">
+          <div class="group-head">
+            <h2>通用操作</h2>
+          </div>
+          <div class="actions-row">
+            <button id="reset-current" class="btn btn-primary" type="button">重置当前模式</button>
+            <button id="copy-fen" class="btn" type="button">复制 FEN</button>
+          </div>
+          <div class="actions-row single-row">
+            <button id="flip-board" class="btn" type="button">翻转棋盘</button>
+          </div>
+          <p id="general-message" class="hint-line">提示：支持翻转棋盘与兵升变选择。</p>
+        </div>
+
+        <section id="panel-ai" class="control-group glass-sub hidden" data-panel="ai">
+          <div class="group-head">
+            <h2>人机设置</h2>
+          </div>
+          <label class="field">
+            <span>AI 执子</span>
+            <select id="ai-side">
+              <option value="b" selected>黑方（推荐）</option>
+              <option value="w">白方</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>搜索深度</span>
+            <select id="ai-depth">
+              <option value="2">2（快）</option>
+              <option value="3" selected>3（平衡）</option>
+              <option value="4">4（更强/更慢）</option>
+            </select>
+          </label>
+          <div class="actions-row">
+            <button id="ai-start-new" class="btn btn-primary" type="button">新对局</button>
+            <button id="ai-force-move" class="btn" type="button">AI 立即走棋</button>
+          </div>
+          <div class="ai-progress-wrap" aria-hidden="true">
+            <div id="ai-progress-track" class="ai-progress-track">
+              <div id="ai-progress-bar" class="ai-progress-bar"></div>
+            </div>
+          </div>
+          <p id="ai-message" class="hint-line"></p>
+        </section>
+
+        <section id="panel-puzzle" class="control-group glass-sub hidden" data-panel="puzzle">
+          <div class="group-head">
+            <h2>闯关模式</h2>
+          </div>
+          <label class="field">
+            <span>关卡类型</span>
+            <select id="puzzle-tier">
+              <option value="mate1">一步杀</option>
+              <option value="mate2">两步杀</option>
+              <option value="mate3">三步杀</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>题目</span>
+            <select id="puzzle-index"></select>
+          </label>
+          <div class="actions-row">
+            <button id="puzzle-start" class="btn btn-primary" type="button">开始/重开</button>
+            <button id="puzzle-next" class="btn" type="button">下一题</button>
+          </div>
+          <div class="actions-row">
+            <button id="puzzle-hint" class="btn" type="button">提示</button>
+            <button id="puzzle-clear-stats" class="btn" type="button">清除本题记录</button>
+          </div>
+          <div class="mini-stats-grid">
+            <div class="mini-stat">
+              <span>本次错误</span>
+              <strong id="puzzle-run-mistakes">0</strong>
+            </div>
+            <div class="mini-stat">
+              <span>提示次数</span>
+              <strong id="puzzle-run-hints">0</strong>
+            </div>
+            <div class="mini-stat">
+              <span>最佳评分</span>
+              <strong id="puzzle-best-score">-</strong>
+            </div>
+            <div class="mini-stat">
+              <span>星级</span>
+              <strong id="puzzle-best-stars">-</strong>
+            </div>
+          </div>
+          <p id="puzzle-score-result" class="hint-line"></p>
+          <p id="puzzle-hint-text" class="hint-line"></p>
+          <p id="puzzle-goal" class="hint-line"></p>
+          <p id="puzzle-message" class="hint-line"></p>
+        </section>
+
+        <section id="panel-lesson" class="control-group glass-sub hidden" data-panel="lesson">
+          <div class="group-head">
+            <h2>经典棋局讲解</h2>
+          </div>
+          <label class="field">
+            <span>章节分类</span>
+            <select id="lesson-section-filter"></select>
+          </label>
+          <label class="field">
+            <span>棋局</span>
+            <select id="lesson-select"></select>
+          </label>
+          <div class="actions-row">
+            <button id="lesson-reset" class="btn" type="button">回到开局</button>
+            <button id="lesson-prev" class="btn" type="button">上一步</button>
+            <button id="lesson-next" class="btn btn-primary" type="button">下一步</button>
+          </div>
+          <p id="lesson-progress" class="hint-line"></p>
+          <p id="lesson-meta" class="hint-line"></p>
+          <div class="lesson-note" id="lesson-note"></div>
+        </section>
+
+        <div id="error-banner" class="error-banner hidden" role="alert"></div>
+      </section>
+
+      <section class="board-stage">
+        <div class="board-shell">
+          <div id="move-anim-layer" class="move-anim-layer" aria-hidden="true"></div>
+          <div id="board" class="board" aria-label="国际象棋棋盘"></div>
+          <div id="promotion-picker" class="promotion-picker glass hidden" role="dialog" aria-modal="false" aria-label="选择兵升变棋子">
+            <h3>选择升变棋子</h3>
+            <div class="promo-grid">
+              <button type="button" class="promo-btn" data-promotion="q"><span class="promo-glyph"></span><span>皇后</span></button>
+              <button type="button" class="promo-btn" data-promotion="r"><span class="promo-glyph"></span><span>车</span></button>
+              <button type="button" class="promo-btn" data-promotion="b"><span class="promo-glyph"></span><span>象</span></button>
+              <button type="button" class="promo-btn" data-promotion="n"><span class="promo-glyph"></span><span>马</span></button>
+            </div>
+            <button type="button" id="promotion-cancel" class="btn">取消</button>
+          </div>
+        </div>
+
+        <section class="moves-panel glass">
+          <div class="moves-head">
+            <h2>着法记录</h2>
+            <p id="history-caption">实时更新</p>
+          </div>
+          <div class="moves-table-wrap">
+            <table class="moves-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>白方</th>
+                  <th>黑方</th>
+                </tr>
+              </thead>
+              <tbody id="move-list"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    
+    
+    
+    
+    
+    
+    
+  
+<script src="./vendor/chess.min.js"></script>
+<script src="./content.js"></script>
+<script src="./mode-core.js"></script>
+<script src="./progress-core.js"></script>
+<script src="./ai.js"></script>
+<script src="./game-core.js"></script>
+<script src="./app.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

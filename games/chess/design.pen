@@ -1,0 +1,456 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "type": "frame",
+      "id": "Y5027",
+      "x": 0,
+      "y": 0,
+      "name": "Chess Terminal",
+      "width": 1440,
+      "height": 900,
+      "fill": "#0A0A0A",
+      "children": [
+        {
+          "type": "frame",
+          "id": "pjLai",
+          "name": "sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "stroke": {
+            "thickness": {
+              "right": 1
+            },
+            "fill": "#2a2a2a"
+          },
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            32,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "iFvjs",
+              "name": "logo",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nbxdR",
+                  "name": "logoPrompt",
+                  "fill": "#10B981",
+                  "content": ">",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "YgcNR",
+                  "name": "logoText",
+                  "fill": "#FAFAFA",
+                  "content": "terminal_games",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 18,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "4x6D3",
+              "name": "nav",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jrzUi",
+                  "name": "navItem1",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pwpZQ",
+                      "name": "navText1",
+                      "fill": "#6B7280",
+                      "content": "$ 2048",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SH9kk",
+                  "name": "navItem2",
+                  "width": "fill_container",
+                  "fill": "#1F1F1F",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "h5vAx",
+                      "name": "navText2",
+                      "fill": "#10B981",
+                      "content": "$ chess",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "5P7aR",
+          "name": "main_content",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": 40,
+          "children": [
+            {
+              "type": "frame",
+              "id": "730FA",
+              "name": "header",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nfcQr",
+                  "name": "titleContainer",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BCgAn",
+                      "name": "titlePrompt",
+                      "fill": "#10B981",
+                      "content": ">",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 32,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "bwPSx",
+                      "name": "titleText",
+                      "fill": "#FFFFFF",
+                      "content": "game_chess",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 28,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "ReojV",
+                  "name": "subtitle",
+                  "fill": "#6B7280",
+                  "content": "// checkmate_your_opponent!",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "MVelT",
+              "name": "game_area",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "5eWRh",
+                  "name": "chess_board",
+                  "width": 480,
+                  "height": 480,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "UG0bS",
+                      "name": "r1",
+                      "height": 60,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "d5MFG",
+                          "name": "s1_1",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aBNft",
+                          "name": "s1_2",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iF6cn",
+                          "name": "s1_3",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "BesBD",
+                          "name": "s1_4",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "DsjGL",
+                          "name": "s1_5",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mUjTg",
+                          "name": "s1_6",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iIFzE",
+                          "name": "s1_7",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "wLJHl",
+                          "name": "s1_8",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "N3XCF",
+                      "name": "r2",
+                      "height": 60,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fEWXD",
+                          "name": "s2_1",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mrPSk",
+                          "name": "s2_2",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iTcIA",
+                          "name": "s2_3",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "VjRjc",
+                          "name": "s2_4",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "n0wPV",
+                          "name": "s2_5",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "RDavF",
+                          "name": "s2_6",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fXEsA",
+                          "name": "s2_7",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#1F1F1F"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "0ZrZf",
+                          "name": "s2_8",
+                          "width": 60,
+                          "height": 60,
+                          "fill": "#0A0A0A"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kodfc",
+                  "name": "status",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "4xZP9",
+                      "name": "status_text",
+                      "fill": "#10B981",
+                      "content": "// white_to_move",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FcIDP",
+                      "name": "history_btn",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#2a2a2a"
+                      },
+                      "padding": [
+                        4,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PFvHs",
+                          "name": "history_text",
+                          "fill": "#6B7280",
+                          "content": "[history]",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "accent_amber": {
+      "type": "color",
+      "value": "#F59E0B"
+    },
+    "accent_cyan": {
+      "type": "color",
+      "value": "#06B6D4"
+    },
+    "accent_green": {
+      "type": "color",
+      "value": "#10B981"
+    },
+    "bg_active": {
+      "type": "color",
+      "value": "#1F1F1F"
+    },
+    "bg_elevated": {
+      "type": "color",
+      "value": "#0F0F0F"
+    },
+    "bg_page": {
+      "type": "color",
+      "value": "#0A0A0A"
+    },
+    "border_primary": {
+      "type": "color",
+      "value": "#2a2a2a"
+    },
+    "font_mono_text": {
+      "type": "string",
+      "value": "IBM Plex Mono"
+    },
+    "font_mono_ui": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    },
+    "text_emphasis": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text_primary": {
+      "type": "color",
+      "value": "#FAFAFA"
+    },
+    "text_secondary": {
+      "type": "color",
+      "value": "#6B7280"
+    },
+    "text_tertiary": {
+      "type": "color",
+      "value": "#4B5563"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --bg-page: #0A0A0A;
+  --bg-elevated: #0F0F0F;
+  --bg-active: #1F1F1F;
+  
+  --text-primary: #FAFAFA;
+  --text-emphasis: #FFFFFF;
+  --text-secondary: #6B7280;
+  --text-tertiary: #4B5563;
+  
+  --accent-green: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-cyan: #06B6D4;
+  
+  --border-primary: #2a2a2a;
+  
+  --font-mono-ui: 'JetBrains Mono', monospace;
+  --font-mono-text: 'IBM Plex Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-mono-text);
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  border-right: 1px solid var(--border-primary);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-prompt {
+  color: var(--accent-green);
+  font-family: var(--font-mono-ui);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.logo-text {
+  color: var(--text-primary);
+  font-family: var(--font-mono-ui);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono-ui);
+  font-size: 13px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: var(--bg-active);
+  color: var(--accent-green);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  gap: 40px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-prompt {
+  color: var(--accent-green);
+  font-family: var(--font-mono-ui);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.title-text {
+  color: var(--text-emphasis);
+  font-family: var(--font-mono-ui);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.game-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* Utilities */
+.btn {
+  background: none;
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-mono-ui);
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.btn:hover, .btn.primary {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.btn:active {
+  background-color: var(--bg-active);
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Games - connect4</title>
+  <link rel="stylesheet" href="../../src/style.css">
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    /* Global Terminal Overrides for v1 */
+    body { margin: 0; }
+    
+    /* Strip out old backgrounds and colors */
+    .page, .layout, main, .board-wrap, .panel, .glass, .glass-sub { 
+      background: transparent !important; 
+      color: var(--text-primary) !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    .board, #board, canvas {
+      border: 1px solid var(--border-primary) !important;
+      background: var(--bg-elevated) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    button, .btn, .primary-btn {
+      background: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--accent-green) !important;
+      font-family: var(--font-mono-ui) !important;
+      cursor: pointer !important;
+      border-radius: 0 !important;
+      text-transform: lowercase;
+    }
+    
+    button:before { content: "["; color: var(--text-secondary); }
+    button:after { content: "]"; color: var(--text-secondary); }
+
+    button:hover { border-color: var(--accent-green) !important; }
+    
+    /* Typography Overrides */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-mono-ui) !important;
+      color: var(--text-emphasis) !important;
+      text-transform: lowercase;
+    }
+
+    /* Strip rounded corners everywhere */
+    * { border-radius: 0 !important; }
+    
+    /* Make game-area take full width and height */
+    .game-area-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <span class="logo-prompt">&gt;</span>
+      <span class="logo-text">terminal_games</span>
+    </div>
+    <nav class="nav">
+      <a href="../2048/index.html" class="nav-item ">$ 2048</a>
+      <a href="../chess/index.html" class="nav-item ">$ chess</a>
+      <a href="../connect4/index.html" class="nav-item active">$ connect4</a>
+      <a href="../hangman/index.html" class="nav-item ">$ hangman</a>
+      <a href="../memory/index.html" class="nav-item ">$ memory</a>
+      <a href="../minesweeper/index.html" class="nav-item ">$ minesweeper</a>
+      <a href="../simon/index.html" class="nav-item ">$ simon</a>
+      <a href="../snake/index.html" class="nav-item ">$ snake</a>
+      <a href="../tictactoe/index.html" class="nav-item ">$ tictactoe</a>
+      <a href="../xiangqi/index.html" class="nav-item ">$ xiangqi</a>
+    </nav>
+  </div>
+  <div class="main-content">
+    <div class="header">
+      <div class="title-container">
+        <span class="title-prompt">&gt;</span>
+        <span class="title-text">game_connect4</span>
+      </div>
+      <div class="subtitle">// initialized</div>
+    </div>
+    <div class="game-area">
+      <div class="game-area-wrapper">
+        
+    <main class="page">
+      <section class="panel">
+        <div class="heading">
+          <h1>Connect Four</h1>
+          <p>Drop discs and connect 4 in a row.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Turn</span>
+            <strong id="turn">Red</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Status</span>
+            <strong id="status">Playing</strong>
+          </div>
+        </div>
+
+        <button id="restart" class="primary-btn" type="button">New Game</button>
+      </section>
+
+      <section class="board-wrap">
+        <div id="board" class="board" aria-label="Connect four board"></div>
+      </section>
+    </main>
+
+    
+    
+  
+<script src="./game-core.js"></script>
+<script src="./app.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
