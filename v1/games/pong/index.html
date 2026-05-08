@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pong</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page pong-page">
+    <section class="panel">
+      <div class="heading">
+        <h1>Pong</h1>
+        <p>Human operator versus CPU paddle daemon.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card">
+          <span class="label">You</span>
+          <strong id="player-score">0</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">CPU</span>
+          <strong id="cpu-score">0</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">State</span>
+          <strong id="status">Rally</strong>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="up" class="primary-btn" type="button">Up</button>
+        <button id="down" class="primary-btn" type="button">Down</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="board-wrap">
+      <div id="board" class="board" aria-label="Pong board"></div>
+    </section>
+  </main>
+
+  <script src="./game-core.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

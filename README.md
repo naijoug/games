@@ -6,6 +6,7 @@ This repository contains small browser games.
 
 - Home: https://naijoug.github.io/games/
 - 2048: https://naijoug.github.io/games/2048/
+- Breakout: https://naijoug.github.io/games/breakout/
 - Snake: https://naijoug.github.io/games/snake/
 - Tic Tac Toe: https://naijoug.github.io/games/tictactoe/
 - Minesweeper: https://naijoug.github.io/games/minesweeper/
@@ -14,6 +15,9 @@ This repository contains small browser games.
 - Hangman: https://naijoug.github.io/games/hangman/
 - Simon: https://naijoug.github.io/games/simon/
 - Chess Arena: https://naijoug.github.io/games/chess/
+- Codebreaker: https://naijoug.github.io/games/codebreaker/
+- Lights Out: https://naijoug.github.io/games/lightsout/
+- Pong: https://naijoug.github.io/games/pong/
 
 ## 2048
 
@@ -62,6 +66,75 @@ Eat food to grow while avoiding walls and your own body.
 - Eating food grows the snake by `1` and adds `1` score.
 - The game ends when the snake hits a wall or itself.
 - Use `Restart` or `Play Again` to start over.
+
+## Breakout
+
+### Goal
+
+Clear every firewall brick by keeping the packet ball in play.
+
+### Controls
+
+- Keyboard: `Arrow Left / Arrow Right` or `A / D`
+- Mobile: on-screen `Left` and `Right` buttons
+
+### Rules
+
+- The paddle sits near the bottom of the terminal grid.
+- Each brick hit adds `10` score.
+- Missing the ball costs one life.
+- Clear all bricks to win; lose all lives to end the run.
+
+## Codebreaker
+
+### Goal
+
+Crack the hidden four-digit code before lockout.
+
+### Controls
+
+- Keyboard: digits `0-5`, `Backspace`, and `Enter`
+- Mouse/touch: digit buttons, current code strip, and submit button
+
+### Rules
+
+- Digits can repeat.
+- Each guess returns exact matches and present-but-wrong-position traces.
+- You have `10` attempts.
+- The secret is revealed after win or loss.
+
+## Lights Out
+
+### Goal
+
+Turn off every glowing node on the grid.
+
+### Controls
+
+- Click/tap any cell to toggle it
+
+### Rules
+
+- Toggling a cell flips that cell plus its orthogonal neighbors.
+- The puzzle is generated from reversible moves, so every grid is solvable.
+- Win when the whole grid is dark.
+
+## Pong
+
+### Goal
+
+Beat the CPU paddle daemon to `7` points.
+
+### Controls
+
+- Keyboard: `Arrow Up / Arrow Down` or `W / S`
+- Mobile: on-screen `Up` and `Down` buttons
+
+### Rules
+
+- The CPU paddle tracks the ball one row per tick.
+- Score when the ball passes the CPU side.
+- First side to `7` points wins.
 
 ## Tic Tac Toe
 

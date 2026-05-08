@@ -159,3 +159,125 @@ body {
 .btn:active {
   background-color: var(--bg-active);
 }
+
+/* Home launcher */
+.home-body {
+  display: block;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(16, 185, 129, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.035) 1px, transparent 1px),
+    var(--bg-page);
+  background-size: 28px 28px;
+}
+
+.home-shell {
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0;
+}
+
+.home-hero {
+  min-height: 280px;
+  display: grid;
+  align-content: center;
+  gap: 26px;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.home-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.home-copy h1 {
+  color: var(--text-emphasis);
+  font-family: var(--font-mono-ui);
+  font-size: 72px;
+  line-height: 0.95;
+  text-transform: lowercase;
+}
+
+.home-copy p {
+  color: var(--accent-green);
+  font-size: 15px;
+}
+
+.home-start {
+  width: fit-content;
+  text-decoration: none;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  padding: 28px 0 8px;
+}
+
+.game-card {
+  min-height: 132px;
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--border-primary);
+  background: rgba(15, 15, 15, 0.86);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+}
+
+.game-card:hover {
+  border-color: var(--accent-green);
+  background: rgba(31, 31, 31, 0.9);
+  transform: translateY(-2px);
+}
+
+.game-card.hot {
+  border-color: rgba(16, 185, 129, 0.38);
+}
+
+.game-command {
+  color: var(--accent-green);
+  font-family: var(--font-mono-ui);
+  font-size: 13px;
+}
+
+.game-card strong {
+  color: var(--text-emphasis);
+  font-family: var(--font-mono-ui);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+@media (max-width: 760px) {
+  body:not(.home-body) {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-primary);
+    padding: 20px;
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .main-content {
+    padding: 24px 16px;
+  }
+
+  .title-text {
+    font-size: 22px;
+  }
+
+  .home-copy h1 {
+    font-size: 44px;
+  }
+}

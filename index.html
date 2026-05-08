@@ -2,10 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=games/2048/index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terminal Games</title>
+  <link rel="stylesheet" href="./src/style.css">
 </head>
-<body>
-  <script>window.location.href = "games/2048/index.html";</script>
+<body class="home-body">
+  <main class="home-shell">
+    <section class="home-hero">
+      <div class="logo">
+        <span class="logo-prompt">&gt;</span>
+        <span class="logo-text">terminal_games</span>
+      </div>
+      <div class="home-copy">
+        <h1>geek arcade</h1>
+        <p>// boot a tiny browser game from the local terminal rack</p>
+      </div>
+      <a class="btn primary home-start" href="./games/2048/index.html">Run 2048</a>
+    </section>
+
+    <section class="game-grid" aria-label="Game launcher">
+      <a class="game-card" href="./games/2048/index.html">
+        <span class="game-command">$ run 2048</span>
+        <strong>Merge tiles to hit 2048.</strong>
+      </a>
+      <a class="game-card hot" href="./games/breakout/index.html">
+        <span class="game-command">$ run breakout</span>
+        <strong>Deflect packets through firewall bricks.</strong>
+      </a>
+      <a class="game-card" href="./games/chess/index.html">
+        <span class="game-command">$ run chess</span>
+        <strong>Local chess, AI, puzzles, and lessons.</strong>
+      </a>
+      <a class="game-card hot" href="./games/codebreaker/index.html">
+        <span class="game-command">$ run codebreaker</span>
+        <strong>Crack a hidden four-digit vault code.</strong>
+      </a>
+      <a class="game-card" href="./games/connect4/index.html">
+        <span class="game-command">$ run connect4</span>
+        <strong>Drop discs and connect four.</strong>
+      </a>
+      <a class="game-card" href="./games/hangman/index.html">
+        <span class="game-command">$ run hangman</span>
+        <strong>Guess the word before lockout.</strong>
+      </a>
+      <a class="game-card hot" href="./games/lightsout/index.html">
+        <span class="game-command">$ run lightsout</span>
+        <strong>Toggle the grid until every node is dark.</strong>
+      </a>
+      <a class="game-card" href="./games/memory/index.html">
+        <span class="game-command">$ run memory</span>
+        <strong>Match cards in the least flips.</strong>
+      </a>
+      <a class="game-card" href="./games/minesweeper/index.html">
+        <span class="game-command">$ run minesweeper</span>
+        <strong>Reveal safe cells and flag mines.</strong>
+      </a>
+      <a class="game-card hot" href="./games/pong/index.html">
+        <span class="game-command">$ run pong</span>
+        <strong>Human operator versus CPU paddle daemon.</strong>
+      </a>
+      <a class="game-card" href="./games/simon/index.html">
+        <span class="game-command">$ run simon</span>
+        <strong>Replay the growing signal sequence.</strong>
+      </a>
+      <a class="game-card" href="./games/snake/index.html">
+        <span class="game-command">$ run snake</span>
+        <strong>Eat, grow, and avoid your own trace.</strong>
+      </a>
+      <a class="game-card" href="./games/tictactoe/index.html">
+        <span class="game-command">$ run tictactoe</span>
+        <strong>Classic local three-in-a-row duel.</strong>
+      </a>
+      <a class="game-card" href="./games/xiangqi/index.html">
+        <span class="game-command">$ run xiangqi</span>
+        <strong>Chinese chess with local board logic.</strong>
+      </a>
+    </section>
+  </main>
 </body>
 </html>

@@ -1,7 +1,19 @@
 export function initSidebar(activeGame) {
   const games = [
-    '2048', 'chess', 'connect4', 'hangman', 'memory', 
-    'minesweeper', 'simon', 'snake', 'tictactoe', 'xiangqi'
+    '2048',
+    'breakout',
+    'chess',
+    'codebreaker',
+    'connect4',
+    'hangman',
+    'lightsout',
+    'memory',
+    'minesweeper',
+    'pong',
+    'simon',
+    'snake',
+    'tictactoe',
+    'xiangqi',
   ];
 
   const sidebarHTML = `

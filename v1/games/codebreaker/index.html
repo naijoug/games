@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codebreaker</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page codebreaker-page">
+    <section class="panel terminal-card">
+      <div class="heading">
+        <h1>Codebreaker</h1>
+        <p>Crack the four-digit vault code. Digits can repeat.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card">
+          <span class="label">State</span>
+          <strong id="status">Cracking</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">Tries</span>
+          <strong id="attempts">0/10</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">Secret</span>
+          <strong id="reveal">****</strong>
+        </div>
+      </div>
+
+      <div id="current" class="current-code" aria-label="Current guess"></div>
+      <div id="picker" class="picker" aria-label="Digit picker"></div>
+
+      <div class="actions">
+        <button id="submit" class="primary-btn" type="button">Submit</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="board-wrap terminal-card">
+      <h2>Probe Log</h2>
+      <div id="history" class="history" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="./game-core.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

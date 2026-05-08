@@ -1,0 +1,115 @@
+.codebreaker-page {
+  width: min(980px, 100%);
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(320px, 1fr);
+  gap: 24px;
+}
+
+.terminal-card {
+  border: 1px solid var(--border-primary);
+  padding: 22px;
+  background:
+    linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.heading {
+  display: grid;
+  gap: 8px;
+}
+
+.heading p,
+.label {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.scores {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.score-card {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: 8px;
+}
+
+.current-code,
+.picker,
+.guess-code {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.current-code {
+  margin-bottom: 16px;
+}
+
+.peg,
+.chip {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--border-primary);
+  color: var(--text-emphasis);
+  font-family: var(--font-mono-ui);
+  font-weight: 700;
+}
+
+.peg[data-value="0"],
+.chip[data-value="0"] { color: var(--accent-green); }
+.peg[data-value="1"],
+.chip[data-value="1"] { color: var(--accent-cyan); }
+.peg[data-value="2"],
+.chip[data-value="2"] { color: var(--accent-amber); }
+.peg[data-value="3"],
+.chip[data-value="3"] { color: #f472b6; }
+.peg[data-value="4"],
+.chip[data-value="4"] { color: #a78bfa; }
+.peg[data-value="5"],
+.chip[data-value="5"] { color: #f87171; }
+
+.draft {
+  border-color: var(--accent-green);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.history {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  min-height: 360px;
+  align-content: start;
+}
+
+.guess-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px dashed var(--border-primary);
+  padding-bottom: 10px;
+}
+
+.feedback {
+  color: var(--accent-green);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .codebreaker-page {
+    grid-template-columns: 1fr;
+  }
+}

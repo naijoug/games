@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terminal Games - snake</title>
+  <title>Terminal Games - codebreaker</title>
   <link rel="stylesheet" href="../../src/style.css">
   <link rel="stylesheet" href="./styles.css">
 
@@ -70,7 +70,7 @@
       <a href="../2048/index.html" class="nav-item ">$ 2048</a>
       <a href="../breakout/index.html" class="nav-item ">$ breakout</a>
       <a href="../chess/index.html" class="nav-item ">$ chess</a>
-      <a href="../codebreaker/index.html" class="nav-item ">$ codebreaker</a>
+      <a href="../codebreaker/index.html" class="nav-item active">$ codebreaker</a>
       <a href="../connect4/index.html" class="nav-item ">$ connect4</a>
       <a href="../hangman/index.html" class="nav-item ">$ hangman</a>
       <a href="../lightsout/index.html" class="nav-item ">$ lightsout</a>
@@ -78,7 +78,7 @@
       <a href="../minesweeper/index.html" class="nav-item ">$ minesweeper</a>
       <a href="../pong/index.html" class="nav-item ">$ pong</a>
       <a href="../simon/index.html" class="nav-item ">$ simon</a>
-      <a href="../snake/index.html" class="nav-item active">$ snake</a>
+      <a href="../snake/index.html" class="nav-item ">$ snake</a>
       <a href="../tictactoe/index.html" class="nav-item ">$ tictactoe</a>
       <a href="../xiangqi/index.html" class="nav-item ">$ xiangqi</a>
     </nav>
@@ -87,58 +87,53 @@
     <div class="header">
       <div class="title-container">
         <span class="title-prompt">&gt;</span>
-        <span class="title-text">game_snake</span>
+        <span class="title-text">game_codebreaker</span>
       </div>
       <div class="subtitle">// initialized</div>
     </div>
     <div class="game-area">
       <div class="game-area-wrapper">
         
-    <main class="page">
-      <section class="panel">
-        <div class="heading">
-          <h1>Snake</h1>
-          <p>Use arrow keys or WASD. Eat food and avoid walls or yourself.</p>
+  <main class="page codebreaker-page">
+    <section class="panel terminal-card">
+      <div class="heading">
+        <h1>Codebreaker</h1>
+        <p>Crack the four-digit vault code. Digits can repeat.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card">
+          <span class="label">State</span>
+          <strong id="status">Cracking</strong>
         </div>
-
-        <div class="scores">
-          <div class="score-card">
-            <span class="label">Score</span>
-            <strong id="score">0</strong>
-          </div>
-          <div class="score-card">
-            <span class="label">State</span>
-            <strong id="status">Running</strong>
-          </div>
+        <div class="score-card">
+          <span class="label">Tries</span>
+          <strong id="attempts">0/10</strong>
         </div>
-
-        <div class="actions">
-          <button id="pause" class="primary-btn" type="button">Pause</button>
-          <button id="restart" class="primary-btn" type="button">Restart</button>
+        <div class="score-card">
+          <span class="label">Secret</span>
+          <strong id="reveal">****</strong>
         </div>
+      </div>
 
-        <section class="mobile-controls" aria-label="Snake touch controls">
-          <button class="control-btn" data-dir="up" type="button">Up</button>
-          <div class="control-row">
-            <button class="control-btn" data-dir="left" type="button">Left</button>
-            <button class="control-btn" data-dir="down" type="button">Down</button>
-            <button class="control-btn" data-dir="right" type="button">Right</button>
-          </div>
-        </section>
-      </section>
+      <div id="current" class="current-code" aria-label="Current guess"></div>
+      <div id="picker" class="picker" aria-label="Digit picker"></div>
 
-      <section class="board-wrap">
-        <div id="overlay" class="overlay hidden">
-          <h2 id="overlay-title">Game Over</h2>
-          <button id="overlay-action" class="primary-btn" type="button">Play Again</button>
-        </div>
-        <div id="board" class="board" aria-label="Snake game board"></div>
-      </section>
-    </main>
+      <div class="actions">
+        <button id="submit" class="primary-btn" type="button">Submit</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
 
-    
-    
+    <section class="board-wrap terminal-card">
+      <h2>Probe Log</h2>
+      <div id="history" class="history" aria-live="polite"></div>
+    </section>
+  </main>
+
   
+  
+
 <script src="./game-core.js"></script>
 <script src="./app.js"></script>
       </div>

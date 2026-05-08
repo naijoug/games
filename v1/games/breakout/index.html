@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breakout</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page breakout-page">
+    <section class="panel">
+      <div class="heading">
+        <h1>Breakout</h1>
+        <p>Deflect the packet. Delete every firewall block.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card">
+          <span class="label">Score</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">Lives</span>
+          <strong id="lives">3</strong>
+        </div>
+        <div class="score-card">
+          <span class="label">State</span>
+          <strong id="status">Live</strong>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="left" class="primary-btn" type="button">Left</button>
+        <button id="right" class="primary-btn" type="button">Right</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="board-wrap">
+      <div id="board" class="board" aria-label="Breakout board"></div>
+    </section>
+  </main>
+
+  <script src="./game-core.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
