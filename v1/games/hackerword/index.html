@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackerword</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page hackerword-page">
+    <section class="panel">
+      <div class="heading">
+        <h1>Hackerword</h1>
+        <p>Guess the five-letter command before access closes.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card"><span class="label">State</span><strong id="status">Scanning</strong></div>
+        <div class="score-card"><span class="label">Tries</span><strong id="attempts">0/6</strong></div>
+        <div class="score-card"><span class="label">Secret</span><strong id="secret">*****</strong></div>
+      </div>
+
+      <div class="entry">
+        <input id="guess" type="text" autocomplete="off" spellcheck="false" aria-label="Guess">
+        <button id="submit" class="primary-btn" type="button">Probe</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="board-wrap">
+      <div id="grid" class="grid" aria-label="Hackerword grid"></div>
+    </section>
+  </main>
+
+  <script src="./game-core.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

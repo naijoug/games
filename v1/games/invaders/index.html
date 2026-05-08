@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invaders</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page invaders-page">
+    <section class="panel">
+      <div class="heading">
+        <h1>Invaders</h1>
+        <p>Defend the terminal from descending hostile packets.</p>
+      </div>
+
+      <div class="scores">
+        <div class="score-card"><span class="label">Score</span><strong id="score">0</strong></div>
+        <div class="score-card"><span class="label">Enemies</span><strong id="enemies">12</strong></div>
+        <div class="score-card"><span class="label">State</span><strong id="status">Defending</strong></div>
+      </div>
+
+      <div class="actions">
+        <button id="left" class="primary-btn" type="button">Left</button>
+        <button id="fire" class="primary-btn" type="button">Fire</button>
+        <button id="right" class="primary-btn" type="button">Right</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="board-wrap">
+      <div id="board" class="board" aria-label="Invaders board"></div>
+    </section>
+  </main>
+
+  <script src="./game-core.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

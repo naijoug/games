@@ -13,11 +13,14 @@ This repository contains small browser games.
 - Memory Match: https://naijoug.github.io/games/memory/
 - Connect Four: https://naijoug.github.io/games/connect4/
 - Hangman: https://naijoug.github.io/games/hangman/
+- Hackerword: https://naijoug.github.io/games/hackerword/
+- Invaders: https://naijoug.github.io/games/invaders/
 - Simon: https://naijoug.github.io/games/simon/
 - Chess Arena: https://naijoug.github.io/games/chess/
 - Codebreaker: https://naijoug.github.io/games/codebreaker/
 - Lights Out: https://naijoug.github.io/games/lightsout/
 - Pong: https://naijoug.github.io/games/pong/
+- Sokoban: https://naijoug.github.io/games/sokoban/
 
 ## 2048
 
@@ -135,6 +138,58 @@ Beat the CPU paddle daemon to `7` points.
 - The CPU paddle tracks the ball one row per tick.
 - Score when the ball passes the CPU side.
 - First side to `7` points wins.
+
+## Hackerword
+
+### Goal
+
+Guess the hidden five-letter command in six attempts.
+
+### Controls
+
+- Keyboard: type a word and press `Enter`
+- Mouse/touch: input field plus `Probe` button
+
+### Rules
+
+- Green tiles are exact letter positions.
+- Amber tiles are letters present elsewhere in the word.
+- The secret is revealed after win or loss.
+
+## Invaders
+
+### Goal
+
+Destroy the descending packet wave before it reaches the terminal base.
+
+### Controls
+
+- Keyboard: `Arrow Left / Arrow Right` or `A / D`
+- Fire: `Space`, `Arrow Up`, or `W`
+- Mobile: on-screen buttons
+
+### Rules
+
+- Shots travel upward one row per tick.
+- Enemy packets move sideways and drop when they hit an edge.
+- Destroy all packets to win; let them reach the base to lose.
+
+## Sokoban
+
+### Goal
+
+Push every payload crate onto a target node.
+
+### Controls
+
+- Keyboard: `Arrow Keys` or `W / A / S / D`
+- Mobile: on-screen direction buttons
+
+### Rules
+
+- You can push one crate at a time.
+- Crates cannot move through walls or other crates.
+- Complete a level by placing all crates on targets.
 
 ## Tic Tac Toe
 

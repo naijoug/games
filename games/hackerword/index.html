@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terminal Games - memory</title>
+  <title>Terminal Games - hackerword</title>
   <link rel="stylesheet" href="../../src/style.css">
   <link rel="stylesheet" href="./styles.css">
 
@@ -73,10 +73,10 @@
       <a href="../codebreaker/index.html" class="nav-item ">$ codebreaker</a>
       <a href="../connect4/index.html" class="nav-item ">$ connect4</a>
       <a href="../hangman/index.html" class="nav-item ">$ hangman</a>
-      <a href="../hackerword/index.html" class="nav-item ">$ hackerword</a>
+      <a href="../hackerword/index.html" class="nav-item active">$ hackerword</a>
       <a href="../invaders/index.html" class="nav-item ">$ invaders</a>
       <a href="../lightsout/index.html" class="nav-item ">$ lightsout</a>
-      <a href="../memory/index.html" class="nav-item active">$ memory</a>
+      <a href="../memory/index.html" class="nav-item ">$ memory</a>
       <a href="../minesweeper/index.html" class="nav-item ">$ minesweeper</a>
       <a href="../pong/index.html" class="nav-item ">$ pong</a>
       <a href="../simon/index.html" class="nav-item ">$ simon</a>
@@ -90,47 +90,41 @@
     <div class="header">
       <div class="title-container">
         <span class="title-prompt">&gt;</span>
-        <span class="title-text">game_memory</span>
+        <span class="title-text">game_hackerword</span>
       </div>
       <div class="subtitle">// initialized</div>
     </div>
     <div class="game-area">
       <div class="game-area-wrapper">
         
-    <main class="page">
-      <section class="panel">
-        <div class="heading">
-          <h1>Memory Match</h1>
-          <p>Flip cards and find all pairs.</p>
-        </div>
+  <main class="page hackerword-page">
+    <section class="panel">
+      <div class="heading">
+        <h1>Hackerword</h1>
+        <p>Guess the five-letter command before access closes.</p>
+      </div>
 
-        <div class="stats">
-          <div class="stat-card">
-            <span class="label">Moves</span>
-            <strong id="moves">0</strong>
-          </div>
-          <div class="stat-card">
-            <span class="label">Pairs</span>
-            <strong id="pairs">0 / 8</strong>
-          </div>
-        </div>
+      <div class="scores">
+        <div class="score-card"><span class="label">State</span><strong id="status">Scanning</strong></div>
+        <div class="score-card"><span class="label">Tries</span><strong id="attempts">0/6</strong></div>
+        <div class="score-card"><span class="label">Secret</span><strong id="secret">*****</strong></div>
+      </div>
 
-        <div class="stat-card status-card">
-          <span class="label">Status</span>
-          <strong id="status">Playing</strong>
-        </div>
+      <div class="entry">
+        <input id="guess" type="text" autocomplete="off" spellcheck="false" aria-label="Guess">
+        <button id="submit" class="primary-btn" type="button">Probe</button>
+        <button id="reset" class="primary-btn" type="button">Reset</button>
+      </div>
+    </section>
 
-        <button id="restart" class="primary-btn" type="button">New Game</button>
-      </section>
+    <section class="board-wrap">
+      <div id="grid" class="grid" aria-label="Hackerword grid"></div>
+    </section>
+  </main>
 
-      <section class="board-wrap">
-        <div id="board" class="board" aria-label="Memory game board"></div>
-      </section>
-    </main>
-
-    
-    
   
+  
+
 <script src="./game-core.js"></script>
 <script src="./app.js"></script>
       </div>

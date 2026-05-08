@@ -1,0 +1,117 @@
+.hackerword-page {
+  width: min(960px, 100%);
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(320px, 1fr);
+  gap: 26px;
+  align-items: center;
+}
+
+.panel,
+.board-wrap {
+  border: 1px solid var(--border-primary);
+  padding: 22px;
+  background:
+    linear-gradient(rgba(6, 182, 212, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.035) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.heading {
+  display: grid;
+  gap: 8px;
+}
+
+.heading p,
+.label {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.scores {
+  display: grid;
+  gap: 11px;
+  margin: 22px 0;
+}
+
+.score-card {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border-primary);
+  padding-bottom: 8px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+}
+
+.entry input {
+  min-width: 0;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-elevated);
+  color: var(--accent-green);
+  font: 700 14px var(--font-mono-ui);
+  padding: 9px 11px;
+  outline: none;
+  text-transform: lowercase;
+}
+
+.entry input:focus {
+  border-color: var(--accent-green);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 58px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.tile {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  font: 700 24px var(--font-mono-ui);
+  text-transform: uppercase;
+}
+
+.tile.hit {
+  color: var(--bg-page);
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.tile.trace {
+  color: var(--bg-page);
+  background: var(--accent-amber);
+  border-color: var(--accent-amber);
+}
+
+.tile.miss {
+  color: var(--text-secondary);
+  background: var(--bg-active);
+}
+
+@media (max-width: 840px) {
+  .hackerword-page {
+    grid-template-columns: 1fr;
+  }
+
+  .entry {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: repeat(5, 48px);
+  }
+
+  .tile {
+    width: 48px;
+    height: 48px;
+  }
+}
