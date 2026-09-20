@@ -1,6 +1,6 @@
 # Chess Arena Enhancements (Progress + Content + UX) Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **历史记录 / Historical reference:** 本文保留当时的设计与实施方案，不是当前执行规范。目录、依赖和命令可能已变化；当前架构见 [架构文档](../project-functional-architecture.md)，开发与验证命令见 [README](../../README.md)。原计划中的步骤不构成新的任务或操作授权。
 
 **Goal:** Add persistent puzzle progression/scoring, expanded categorized lessons, and UI feedback/animation enhancements to `chess/`.
 

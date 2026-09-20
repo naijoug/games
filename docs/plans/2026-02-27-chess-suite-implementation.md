@@ -1,6 +1,6 @@
 # Chess Suite (PvP + AI + Puzzle + Lessons) Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **历史记录 / Historical reference:** 本文保留当时的设计与实施方案，不是当前执行规范。目录、依赖和命令可能已变化；当前架构见 [架构文档](../project-functional-architecture.md)，开发与验证命令见 [README](../../README.md)。原计划中的步骤不构成新的任务或操作授权。
 
 **Goal:** Build a playable chess mini game in `chess/` with local two-player mode, human-vs-AI mode (alpha-beta search), mate-in-N puzzle challenge mode (1/2/3 moves), and classic game lesson playback with annotations.
 

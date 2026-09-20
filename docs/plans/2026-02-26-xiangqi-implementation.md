@@ -1,6 +1,6 @@
 # Xiangqi Mini Game Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **历史记录 / Historical reference:** 本文保留当时的设计与实施方案，不是当前执行规范。目录、依赖和命令可能已变化；当前架构见 [架构文档](../project-functional-architecture.md)，开发与验证命令见 [README](../../README.md)。原计划中的步骤不构成新的任务或操作授权。
 
 **Goal:** Build a playable Chinese chess mini game in `xiangqi/` with local PvP and PvE (3 AI levels), complete movement rules, core endgame detection, and near-competition repeated-position adjudication for common long-check/long-chase cases.
 
@@ -34,11 +34,6 @@ Expected: FAIL because `xiangqi/game-core.js` is missing or behavior is unimplem
 Run: `node --test xiangqi/tests/game-core.test.js`
 Expected: initial tests PASS.
 
-**Step 5: Commit**
-```bash
-git add xiangqi/game-core.js xiangqi/tests/game-core.test.js
-git commit -m "feat: add xiangqi core engine skeleton"
-```
 
 ### Task 2: Extend engine with check/checkmate/stalemate and repetition adjudication (TDD)
 
@@ -133,9 +128,3 @@ Expected: PASS.
 **Step 3: Sanity-check file structure**
 Run: `rg --files xiangqi | sort`
 Expected: expected files present.
-
-**Step 4: Commit**
-```bash
-git add index.html xiangqi docs/plans/2026-02-26-xiangqi-design.md docs/plans/2026-02-26-xiangqi-implementation.md
-git commit -m "feat: add xiangqi mini game with pvp and ai"
-```

@@ -1,25 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const games = [
-  '2048',
-  'breakout',
-  'chess',
-  'codebreaker',
-  'connect4',
-  'hangman',
-  'hackerword',
-  'invaders',
-  'lightsout',
-  'memory',
-  'minesweeper',
-  'pong',
-  'simon',
-  'snake',
-  'sokoban',
-  'tictactoe',
-  'xiangqi',
-];
+// Historical layout conversion. Only write to the disposable preview directory.
+const rootDir = path.resolve(__dirname, '..');
+const outputDir = path.join(rootDir, '_migration-preview');
+fs.rmSync(outputDir, { recursive: true, force: true });
+fs.mkdirSync(outputDir, { recursive: true });
+fs.copyFileSync(path.join(rootDir, 'index.html'), path.join(outputDir, 'index.html'));
+fs.cpSync(path.join(rootDir, 'src'), path.join(outputDir, 'src'), { recursive: true });
+
+const games = fs.readdirSync(path.join(rootDir, 'v1', 'games'), { withFileTypes: true })
+  .filter(entry => entry.isDirectory() && fs.existsSync(path.join(rootDir, 'v1', 'games', entry.name, 'index.html')))
+  .map(entry => entry.name)
+  .sort();
 
 const layoutTemplate = (game, content, extraHead) => `<!DOCTYPE html>
 <html lang="en">
@@ -111,9 +104,10 @@ const layoutTemplate = (game, content, extraHead) => `<!DOCTYPE html>
 
 games.forEach(game => {
   const v1Dir = path.join(__dirname, '..', 'v1', 'games', game);
-  const newDir = path.join(__dirname, '..', 'games', game);
+  const newDir = path.join(outputDir, 'games', game);
   
   if (fs.existsSync(v1Dir)) {
+    fs.mkdirSync(newDir, { recursive: true });
     // Copy all js and css
     fs.readdirSync(v1Dir).forEach(file => {
       if (file.endsWith('.js') || file.endsWith('.css') || fs.statSync(path.join(v1Dir, file)).isDirectory()) {
@@ -142,3 +136,5 @@ games.forEach(game => {
     fs.writeFileSync(path.join(newDir, 'index.html'), layoutTemplate(game, finalBody, extraHead));
   }
 });
+
+console.log('Legacy layout preview written to _migration-preview/. Current sources are unchanged.');

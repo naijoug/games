@@ -4,23 +4,85 @@ This repository contains small browser games.
 
 ## Online
 
-- Home: https://naijoug.github.io/games/
-- 2048: https://naijoug.github.io/games/2048/
-- Breakout: https://naijoug.github.io/games/breakout/
-- Snake: https://naijoug.github.io/games/snake/
-- Tic Tac Toe: https://naijoug.github.io/games/tictactoe/
-- Minesweeper: https://naijoug.github.io/games/minesweeper/
-- Memory Match: https://naijoug.github.io/games/memory/
-- Connect Four: https://naijoug.github.io/games/connect4/
-- Hangman: https://naijoug.github.io/games/hangman/
-- Hackerword: https://naijoug.github.io/games/hackerword/
-- Invaders: https://naijoug.github.io/games/invaders/
-- Simon: https://naijoug.github.io/games/simon/
-- Chess Arena: https://naijoug.github.io/games/chess/
-- Codebreaker: https://naijoug.github.io/games/codebreaker/
-- Lights Out: https://naijoug.github.io/games/lightsout/
-- Pong: https://naijoug.github.io/games/pong/
-- Sokoban: https://naijoug.github.io/games/sokoban/
+- [Home](https://naijoug.github.io/games/)
+- [2048](https://naijoug.github.io/games/games/2048/)
+- [Breakout](https://naijoug.github.io/games/games/breakout/)
+- [Snake](https://naijoug.github.io/games/games/snake/)
+- [Tic Tac Toe](https://naijoug.github.io/games/games/tictactoe/)
+- [Minesweeper](https://naijoug.github.io/games/games/minesweeper/)
+- [Memory Match](https://naijoug.github.io/games/games/memory/)
+- [Connect Four](https://naijoug.github.io/games/games/connect4/)
+- [Hangman](https://naijoug.github.io/games/games/hangman/)
+- [Hackerword](https://naijoug.github.io/games/games/hackerword/)
+- [Invaders](https://naijoug.github.io/games/games/invaders/)
+- [Simon](https://naijoug.github.io/games/games/simon/)
+- [Chess Arena](https://naijoug.github.io/games/games/chess/)
+- [Codebreaker](https://naijoug.github.io/games/games/codebreaker/)
+- [Lights Out](https://naijoug.github.io/games/games/lightsout/)
+- [Pong](https://naijoug.github.io/games/games/pong/)
+- [Sokoban](https://naijoug.github.io/games/games/sokoban/)
+- [Xiangqi](https://naijoug.github.io/games/games/xiangqi/)
+
+## Development
+
+Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
+For a local HTTP preview, use Python 3 from the repository root:
+
+```bash
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open [the local homepage](http://127.0.0.1:8000/) or
+[a game](http://127.0.0.1:8000/games/2048/).
+Current sources live in `games/`; `v1/` is a published historical snapshot and is not
+synchronized with current game changes.
+
+```bash
+# One game's rules and helpers
+node --test games/2048/tests/*.test.js
+
+# All current games and site tooling (also run by CI)
+node --test games/*/tests/*.test.js scripts/tests/*.test.js
+
+# Package the site, then validate its local links and the Online catalog above
+node scripts/build-site.js
+node scripts/check-site.js
+
+# Preview the packaged site locally
+python3 -m http.server 8000 --bind 127.0.0.1 --directory _site
+```
+
+The build recreates `_site/` from current sources without rewriting them. It keeps
+`games/`, `src/`, and `v1/` in place, excluding tests and `.pen` design files.
+The link check resolves static HTML `href`/`src` attributes under the production
+`/games/` base path, checks every current game's homepage/README entry, and includes
+legacy HTML pages. It does not execute browser JavaScript or check remote services.
+
+| Change | Verification |
+| --- | --- |
+| Documentation | Check affected paths, links, and commands; no game tests needed for prose-only edits |
+| One game's rules or helpers | Run that game's tests; cover behavior and edge cases changed by the task |
+| UI or styles | Inspect the affected desktop/mobile layout and interaction in a browser |
+| Shared resources, navigation, or deployment | Run the full current test suite, build, and check the site; inspect affected UI when applicable |
+| Historical `v1/` runtime | Run the affected legacy game's tests explicitly |
+
+After relevant checks pass, repeat or broaden verification only for new changes,
+failures, or unresolved concerns. Node tests and static link checks do not establish
+that browser interactions work.
+
+Pull requests run validation only. Pushes to `main` and manual workflow runs deploy
+the validated artifact through GitHub Pages. The repository's Pages source should
+be **GitHub Actions**. The project base `/games/` plus the source directory `games/`
+produces published game routes such as `/games/games/2048/`.
+
+For historical layout experiments only, `node scripts/preview-v1-migration.js`
+recreates `_migration-preview/` using `v1` game content. Serve that directory with
+the same Python command if needed. It is separate from normal builds and deployment;
+review any generated changes before copying them into current sources.
+
+- [Project guidance](AGENTS.md)
+- [Architecture and deployment](docs/project-functional-architecture.md)
+- [Historical plans and future plan format](docs/plans/README.md)
 
 ## 2048
 
@@ -319,3 +381,16 @@ Repeat the color sequence as it grows each round.
 - Pawn promotion supports piece selection (`Q / R / B / N`)
 - Puzzle mode includes progressive hints, scoring, stars/grades, and local progress persistence (`localStorage`)
 - Lesson mode tracks local study progress and supports chapter filtering (including Capablanca / Fischer / Kasparov teaching fragments)
+
+
+## Xiangqi
+
+### Modes and controls
+
+- Local two-player games or human vs AI with three difficulty levels
+- Click a piece and a legal destination to move
+- Choose your side, undo moves, or restart from the control panel
+
+The rules engine handles legal moves and endgame detection. Repeated-position
+adjudication approximates common perpetual-check/chase cases; ambiguous repetitions
+fall back to a draw.

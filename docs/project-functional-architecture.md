@@ -1,77 +1,82 @@
-# 项目功能架构文档
+# 项目功能架构
 
-## 1. 项目目标
+本文描述当前实现与维护边界，最近核对日期为 2026-09-20。开发命令和按变更选择验证的方法见 [README](../README.md)，代理工作约束见 [AGENTS.md](../AGENTS.md)。
 
-本项目是一个基于浏览器的小游戏集合站点，目标是：
-- 提供统一首页入口，集中访问多款小游戏。
-- 每个游戏独立开发、独立测试、独立发布静态资源。
-- 所有游戏源码目录统一收敛到 `games/` 下管理。
+## 目录与职责
 
-## 2. 功能架构分层
+| 路径 | 职责 |
+| --- | --- |
+| `index.html` | 当前门户，链接到 `games/<name>/index.html` |
+| `games/<name>/` | 当前维护的游戏源码 |
+| `src/style.css` | 门户和当前游戏共用的终端风格样式 |
+| `src/sidebar.js` | 尚未接入页面的侧栏模块；当前游戏使用 HTML 内联导航 |
+| `v1/` | 历史页面和游戏快照，继续随站点发布，不与当前版本自动同步 |
+| `scripts/build-site.js` | 将当前静态资源打包到 `_site/` |
+| `scripts/check-site.js` | 检查打包后的静态 HTML 链接、资源与 README 游戏路由 |
+| `scripts/preview-v1-migration.js` | 历史布局转换工具，单独生成 `_migration-preview/` |
+| `scripts/tests/` | 构建与路径检查的回归测试 |
+| `docs/plans/` | 历史设计/实施记录与未来计划格式 |
+| `.github/workflows/deploy-pages.yml` | PR 验证，以及主分支/手动触发的 Pages 发布 |
 
-### 2.1 门户层（Portal）
-- 根目录 `index.html` 作为统一入口。
-- 展示全部游戏卡片并跳转到各游戏路径。
+## 游戏模块
 
-### 2.2 游戏实现层（Game Runtime）
-- 真实游戏代码统一放置于 `games/<game-name>/`。
-- 每个游戏目录通常包含：
-  - `index.html`（页面入口）
-  - `style.css`（样式）
-  - `script.js` 或多 JS 文件（游戏逻辑）
-  - `tests/`（测试用例）
+当前有 17 个游戏：`2048`、`breakout`、`chess`、`codebreaker`、`connect4`、`hackerword`、`hangman`、`invaders`、`lightsout`、`memory`、`minesweeper`、`pong`、`simon`、`snake`、`sokoban`、`tictactoe`、`xiangqi`。
 
-### 2.3 文档与计划层（Docs）
-- `docs/` 存放架构文档与实施计划。
-- `docs/plans/` 存放按日期归档的设计/实现计划。
-
-### 2.4 发布层（Deployment）
-- GitHub Actions 工作流 `.github/workflows/deploy-2048-pages.yml` 负责打包静态站点。
-- 构建时会复制根 `index.html`，并将 `games/*` 下每个游戏目录扁平发布到站点根路径。
-- 发布后访问规则：
-  - 根 `index.html`
-  - 站点内游戏路由为 `/<game-name>/`
-  - GitHub Pages 完整 URL 为 `https://naijoug.github.io/games/<game-name>/`
-
-## 3. 当前游戏模块
-
-- `2048`
-- `snake`
-- `tictactoe`
-- `minesweeper`
-- `memory`
-- `connect4`
-- `hangman`
-- `simon`
-- `chess`
-- `xiangqi`
-
-## 4. 目录结构（重构后）
+典型模块结构为：
 
 ```text
-.
-├── .github/
-├── docs/
-│   ├── plans/
-│   └── project-functional-architecture.md
-├── games/
-│   ├── 2048/
-│   ├── chess/
-│   ├── connect4/
-│   ├── hangman/
-│   ├── memory/
-│   ├── minesweeper/
-│   ├── simon/
-│   ├── snake/
-│   ├── tictactoe/
-│   └── xiangqi/
-├── README.md
-└── index.html
+games/<name>/
+├── index.html          # 页面、控件与脚本加载顺序
+├── styles.css          # 游戏专用样式
+├── app.js              # DOM、输入、渲染与浏览器生命周期
+├── game-core.js        # 规则、状态及转换，可在 Node 中测试
+└── tests/*.test.js     # Node 内置测试运行器
 ```
 
-## 5. 关键设计原则
+规则模块通常兼容浏览器全局变量与 Node CommonJS。修改时保持已有的模块导出与脚本加载契约，不将 DOM 操作引入纯规则模块。
 
-- **模块独立**：各游戏互不耦合，便于单独维护与替换。
-- **统一入口**：用户通过同一主页访问全部游戏。
-- **源码收敛**：全部游戏源码统一位于 `games/` 下，减少根目录噪音。
-- **静态可部署**：纯静态资源可直接发布到 GitHub Pages。
+- 国际象棋还包含 `content.js`、`mode-core.js`、`progress-core.js`、`ai.js` 和本地 `vendor/chess.min.js`。页面使用经典脚本加载本地棋库；旧计划中的 CDN 方案属于历史记录。进度持久化使用 `localStorage`，变更时保留已有存档兼容性或提供迁移。
+- 中国象棋包含独立 `ai.js`。重复局面判罚是常见长将/长捉的近似处理，复杂模糊局面保守判和，不应描述为完整竞赛裁判系统。
+- 棋类 AI 在浏览器内进行本地搜索。当前项目没有服务端或 OpenAI API 运行依赖。
+
+各游戏独立维护，共用样式会影响多个页面。新增游戏时补齐门户、相关游戏导航与 README 在线目录；发布检查从目录发现游戏，不依赖固定数量。`.pen` 文件是设计参考，不参与运行。
+
+## 打包与 URL
+
+正常构建不转换页面、不从 `v1` 回写当前源码。`node scripts/build-site.js` 重建 `_site/`，复制 `index.html`、`src/`、`games/` 和 `v1/`，排除 `tests/` 与 `.pen` 文件。
+
+```text
+_site/
+├── index.html
+├── src/
+├── games/<name>/
+└── v1/
+    ├── index.html
+    └── games/<name>/
+```
+
+| 内容 | 本地从仓库或产物根目录提供 HTTP 服务 | GitHub Pages 路径 |
+| --- | --- | --- |
+| 门户 | `/` | `/games/` |
+| 当前游戏 | `/games/<name>/` | `/games/games/<name>/` |
+| 共享资源 | `/src/style.css` | `/games/src/style.css` |
+| 历史门户 | `/v1/` | `/games/v1/` |
+| 历史游戏 | `/v1/games/<name>/` | `/games/v1/games/<name>/` |
+
+Pages 项目基路径为 `/games/`，源码目录也叫 `games/`，因此当前游戏 URL 包含两层 `games`。例如：[2048](https://naijoug.github.io/games/games/2048/)。保留现有路径结构，并使用相对链接兼容本地和 Pages 部署。
+
+站点不需要 npm 安装、打包器或服务端。共享样式引用了外部 Google Fonts；静态资源检查不保证外部字体服务可用。
+
+## 验证与发布
+
+PR 工作流运行当前游戏和站点工具测试，构建产物并检查路径；不会部署。推送 `main` 或手动运行工作流时，验证成功后上传同一份产物并部署。CI 使用 Node.js 22，发布权限仅用于部署任务。
+
+检查器遍历产物中的当前和历史 HTML，以实际 Pages 基路径解析静态、带引号的 `href`/`src`，验证本地目标存在、门户包含所有当前游戏，以及 README 在线目录完整且路由有效。它不检查 JavaScript 动态生成的链接、浏览器运行行为或远程资源可用性。UI 修改仍需相应浏览器验证。
+
+规则变更优先验证受影响游戏。共享资源、导航或发布变更运行全量当前测试与产物检查；历史游戏逻辑变更再运行对应 `v1` 测试。通过后仅在新修改、失败或未决问题出现时追加验证。
+
+## 历史布局转换
+
+旧的 `scripts/build.js` 已更名为 `scripts/preview-v1-migration.js`。该工具把 `v1/games/` 页面套用终端布局，输出到 `_migration-preview/`，用于复查历史转换效果。它不属于正常构建或发布流程，且不会修改 `games/`、`src/` 或 `v1/`。
+
+`_site/` 和 `_migration-preview/` 都是可重新生成的本地产物，已忽略于 Git。当前源码的后续修复直接维护在 `games/` 中。

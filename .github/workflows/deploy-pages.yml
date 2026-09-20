@@ -1,45 +1,61 @@
-name: Deploy Games to GitHub Pages
+name: Validate and Deploy Games
 
 on:
+  pull_request:
   push:
     branches: ["main"]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Test games and site tooling
+        run: node --test games/*/tests/*.test.js scripts/tests/*.test.js
 
       - name: Build site artifact
-        run: |
-          rm -rf _site
-          mkdir -p _site
-          cp index.html _site/index.html
-          cp -R src _site/src
-          cp -R games _site/games
-          cp -R v1 _site/v1
+        run: node scripts/build-site.js
+
+      - name: Check published links and README routes
+        run: node scripts/check-site.js
 
       - name: Upload artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Deploy
         id: deployment
