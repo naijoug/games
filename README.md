@@ -23,6 +23,9 @@ This repository contains small browser games.
 - [Sokoban](https://naijoug.github.io/games/games/sokoban/)
 - [Xiangqi](https://naijoug.github.io/games/games/xiangqi/)
 
+- [迷宫寻路](https://naijoug.github.io/games/games/maze/)
+
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -394,3 +397,8 @@ Repeat the color sequence as it grows each round.
 The rules engine handles legal moves and endgame detection. Repeated-position
 adjudication approximates common perpetual-check/chase cases; ambiguous repetitions
 fall back to a draw.
+
+## 迷宫寻路
+
+18 关方向与路线挑战，支持撤销和当前位置提示。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
