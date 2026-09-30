@@ -310,20 +310,7 @@ Reveal all safe cells without clicking a mine.
 
 ## Memory Match
 
-### Goal
-
-Find and match all card pairs.
-
-### Controls
-
-- Click cards to flip two at a time
-
-### Rules
-
-- Board size is `4 x 4` (`8` pairs).
-- Matching pair stays open.
-- Non-matching pair flips back after a short delay.
-- Matching all pairs wins.
+Choose classic 8-pair play or children's 2-, 4-, and 6-pair modes. Flip two cards to match all pairs. Children's cards use animal labels and stay visible for 1.2 seconds after a mismatch; classic play retains a 0.5-second delay. Restart or switch modes at any time. Preferences are saved locally; covered cards do not expose their answers to screen readers.
 
 ## Connect Four
 
