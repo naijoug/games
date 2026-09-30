@@ -350,21 +350,7 @@ Guess the hidden word before attempts run out.
 
 ## Simon
 
-### Goal
-
-Repeat the color sequence as it grows each round.
-
-### Controls
-
-- Click colored pads
-- Keyboard shortcuts: `G / R / Y / B`
-
-### Rules
-
-- Start a round to watch the sequence playback.
-- Repeat the full sequence in order.
-- A wrong input ends the game.
-- Score equals the completed sequence length.
+Repeat the growing sequence using the four shape/color pads or G/R/Y/B keys. Classic mode retains the original speed and ends on a mismatch. Children's mode uses a one-second beat, allows replay and retry of the same sequence, and finishes after six signals. Restarting or switching modes cancels all previous playback timers. Mode preference is saved locally.
 
 ## Chess Arena
 

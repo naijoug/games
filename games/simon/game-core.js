@@ -9,6 +9,7 @@
 
   function createGame(initial = {}) {
     return {
+      mode: initial.mode === "kids" ? "kids" : "classic",
       sequence: Array.isArray(initial.sequence) ? initial.sequence.slice() : [],
       status: initial.status || "idle",
       round: Number.isInteger(initial.round) ? initial.round : 0,
@@ -24,7 +25,7 @@
   }
 
   function startRound(game, randomFn = Math.random) {
-    if (game.status === "game-over") {
+    if (!["idle", "round-complete"].includes(game.status)) {
       return game;
     }
 
@@ -39,7 +40,7 @@
   }
 
   function inputColor(game, color) {
-    if (game.status !== "input") {
+    if (game.status !== "input" || !COLORS.includes(color)) {
       return game;
     }
 
@@ -47,7 +48,7 @@
     if (color !== expected) {
       return {
         ...game,
-        status: "game-over",
+        status: game.mode === "kids" ? "retry" : "game-over",
       };
     }
 
@@ -57,7 +58,7 @@
         ...game,
         inputIndex: 0,
         score: game.sequence.length,
-        status: "round-complete",
+        status: game.mode === "kids" && game.sequence.length >= 6 ? "won" : "round-complete",
       };
     }
 
@@ -67,7 +68,13 @@
     };
   }
 
+  function replayRound(game) {
+    if (game.mode !== "kids" || !["input", "retry"].includes(game.status)) return game;
+    return { ...game, inputIndex: 0, status: "input" };
+  }
+
   return {
+    replayRound,
     COLORS,
     createGame,
     startRound,

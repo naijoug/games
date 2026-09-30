@@ -39,3 +39,7 @@ test("startRound after completion increments round", () => {
   assert.equal(game.round, 2);
   assert.equal(game.sequence.length, 2);
 });
+
+const { replayRound } = require('../game-core.js');
+test('junior retry preserves sequence and score, replay resets partial input',()=>{let s=createGame({mode:'kids',sequence:['green','red'],status:'input',score:1});s=inputColor(s,'blue');assert.equal(s.status,'retry');const n=replayRound(s);assert.deepEqual(n.sequence,s.sequence);assert.equal(n.score,1);assert.equal(n.inputIndex,0);assert.equal(n.status,'input');assert.equal(inputColor(n,'invalid'),n);assert.equal(startRound(n),n);});
+test('junior completes exactly six successful signals, classic keeps growing',()=>{let s=createGame({mode:'kids'});for(let i=1;i<=6;i++){s=startRound(s,()=>0);for(let k=0;k<i;k++)s=inputColor(s,'green');assert.equal(s.status,i===6?'won':'round-complete');}assert.equal(startRound(s),s);assert.equal(inputColor(s,'green'),s);let c=createGame({sequence:Array(6).fill('green'),status:'input'});for(let i=0;i<6;i++)c=inputColor(c,'green');assert.equal(c.status,'round-complete');assert.equal(startRound(c,()=>0).sequence.length,7);});
