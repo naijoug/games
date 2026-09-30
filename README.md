@@ -31,6 +31,8 @@ This repository contains small browser games.
 
 - [七巧板](https://naijoug.github.io/games/games/tangram/)
 
+- [小车解堵](https://naijoug.github.io/games/games/traffic/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -418,3 +420,7 @@ fall back to a draw.
 ## 七巧板
 
 12 个七块拼搭目标，拖动或按钮操作、旋转与翻面。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 小车解堵
+
+18 关车辆规划，支持拖动、撤销与当前局面提示。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
