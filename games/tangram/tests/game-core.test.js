@@ -1,5 +1,44 @@
-const {test}=require('node:test');const assert=require('node:assert/strict');const C=require('../game-core.js');const L=require('../levels.js');
-const G=require('../geometry.js');
-test('12 connected targets accept recorded transforms and interchangeable pieces',()=>{assert.equal(L.length,12);for(const l of L){let s=C.createGame(l);for(let i=0;i<7;i++)s=C.transformPiece(s,i,l.solution[i]);assert.equal(s.status,'won');const pieces=s.pieces.slice();[pieces[0],pieces[1]]=[pieces[1],pieces[0]];[pieces[5],pieces[6]]=[pieces[6],pieces[5]];assert(C.checkSolved({...s,pieces}));assert.equal(C.undo(s).status,'playing');}});
-test('geometry distinguishes overlap, touch and missing coverage',()=>{const sq=[[0,0],[2,0],[2,2],[0,2]],touch=sq.map(([x,y])=>[x+2,y]);assert.equal(G.area(G.intersection(sq,touch)),0);assert.equal(G.area(G.intersection(sq,sq)),4);assert(!G.covered([sq,sq],[sq,touch]));assert(G.covered([sq,touch],[sq,touch]));assert(!G.covered([sq],[sq,touch]));});
-test('rotation and flip cycles restore geometry; out of bounds rejected',()=>{const s=C.createGame(L[0]);assert.equal(C.transformPiece(s,0,{x:-20}),s);for(const shape of C.SHAPES)assert.deepEqual(G.transform(shape,{x:0,y:0,rotation:4,flipped:false}),shape);let p=C.transformPiece(s,4,{flipped:true});p=C.transformPiece(p,4,{flipped:false});assert.deepEqual(p.pieces,s.pieces);});
+const { test } = require("node:test");
+const assert = require("node:assert/strict");
+const C = require("../game-core.js");
+const L = require("../levels.js");
+const G = require("../geometry.js");
+test("12 connected targets accept recorded transforms and interchangeable pieces", () => {
+  assert.equal(L.length, 12);
+  for (const l of L) {
+    let s = C.createGame(l);
+    for (let i = 0; i < 7; i++) s = C.transformPiece(s, i, l.solution[i]);
+    assert.equal(s.status, "won");
+    const pieces = s.pieces.slice();
+    [pieces[0], pieces[1]] = [pieces[1], pieces[0]];
+    [pieces[5], pieces[6]] = [pieces[6], pieces[5]];
+    assert(C.checkSolved({ ...s, pieces }));
+    assert.equal(C.undo(s).status, "playing");
+  }
+});
+test("geometry distinguishes overlap, touch and missing coverage", () => {
+  const sq = [
+      [0, 0],
+      [2, 0],
+      [2, 2],
+      [0, 2],
+    ],
+    touch = sq.map(([x, y]) => [x + 2, y]);
+  assert.equal(G.area(G.intersection(sq, touch)), 0);
+  assert.equal(G.area(G.intersection(sq, sq)), 4);
+  assert(!G.covered([sq, sq], [sq, touch]));
+  assert(G.covered([sq, touch], [sq, touch]));
+  assert(!G.covered([sq], [sq, touch]));
+});
+test("rotation and flip cycles restore geometry; out of bounds rejected", () => {
+  const s = C.createGame(L[0]);
+  assert.equal(C.transformPiece(s, 0, { x: -20 }), s);
+  for (const shape of C.SHAPES)
+    assert.deepEqual(
+      G.transform(shape, { x: 0, y: 0, rotation: 4, flipped: false }),
+      shape,
+    );
+  let p = C.transformPiece(s, 4, { flipped: true });
+  p = C.transformPiece(p, 4, { flipped: false });
+  assert.deepEqual(p.pieces, s.pieces);
+});

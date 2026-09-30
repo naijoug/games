@@ -28,14 +28,19 @@
 
     const values = [];
     for (let i = 0; i < pairCount; i += 1) {
-      const value = String.fromCharCode(65 + (i % 26)) + String(Math.floor(i / 26) || "");
+      const value =
+        String.fromCharCode(65 + (i % 26)) + String(Math.floor(i / 26) || "");
       values.push(value, value);
     }
     return shuffle(values, randomFn);
   }
 
   function createGame(options) {
-    const { pairCount = 8, randomFn = Math.random, deckValues = null } = options || {};
+    const {
+      pairCount = 8,
+      randomFn = Math.random,
+      deckValues = null,
+    } = options || {};
     const deck = createDeck(pairCount, randomFn, deckValues);
 
     const cards = deck.map((value, index) => ({

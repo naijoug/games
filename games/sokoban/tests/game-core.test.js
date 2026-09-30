@@ -13,7 +13,13 @@ test("parseLevel reads walls targets boxes and player", () => {
 
 test("move blocks walking into wall", () => {
   const parsed = parseLevel(["#####", "#@  #", "#####"]);
-  const game = { ...parsed, levelIndex: 0, moves: 0, pushes: 0, status: "playing" };
+  const game = {
+    ...parsed,
+    levelIndex: 0,
+    moves: 0,
+    pushes: 0,
+    status: "playing",
+  };
   const next = move(game, "up");
 
   assert.equal(next, game);
@@ -21,7 +27,13 @@ test("move blocks walking into wall", () => {
 
 test("move pushes a box when destination is free", () => {
   const parsed = parseLevel(["#######", "#@$.  #", "#######"]);
-  const game = { ...parsed, levelIndex: 0, moves: 0, pushes: 0, status: "playing" };
+  const game = {
+    ...parsed,
+    levelIndex: 0,
+    moves: 0,
+    pushes: 0,
+    status: "playing",
+  };
   const next = move(game, "right");
 
   assert.equal(next.boxes.has("1:3"), true);
@@ -30,7 +42,13 @@ test("move pushes a box when destination is free", () => {
 
 test("move refuses to push box into wall", () => {
   const parsed = parseLevel(["#####", "#@$##", "#####"]);
-  const game = { ...parsed, levelIndex: 0, moves: 0, pushes: 0, status: "playing" };
+  const game = {
+    ...parsed,
+    levelIndex: 0,
+    moves: 0,
+    pushes: 0,
+    status: "playing",
+  };
   const next = move(game, "right");
 
   assert.equal(next, game);

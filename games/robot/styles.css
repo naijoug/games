@@ -1,1 +1,205 @@
-body{height:auto;overflow:auto}.kids-main{max-width:1080px;width:100%;min-width:0;margin:auto;padding:32px;color:#edf7f4;font-family:system-ui,sans-serif}.kids-main h1{font-size:clamp(28px,4vw,44px);margin:16px 0}.intro{color:#b8cdc6;line-height:1.8;max-width:700px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;align-items:center}.kids-main button,.kids-main select{font:inherit;min-height:44px;min-width:44px;padding:9px 14px;color:#eefaf6;background:#182b25;border:1px solid #517366;border-radius:10px;cursor:pointer}.kids-main button:hover{background:#29483b}.kids-main button:disabled{opacity:.55;cursor:default}.kids-main button:focus-visible,.kids-main select:focus-visible{outline:3px solid #ffd477;outline-offset:2px}.kids-main button.selected{outline:3px solid #ffd477}.board{display:grid;grid-template-columns:repeat(var(--cols,4),minmax(0,1fr));width:min(100%,520px);gap:5px;margin:20px 0;touch-action:manipulation}.board .cell{aspect-ratio:1;min-width:0;min-height:0;padding:2px;font-size:clamp(16px,3vw,28px);display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #416354;background:#172b24;color:#eefaf6}.board .wall{background:#354d45;border-color:#354d45}.board .player,.board .active{background:#ffdc86;color:#24231c}.board .target{border:3px solid #64d9ac}.board .hint{outline:3px dashed #ffdc86;outline-offset:-4px}.board .visited{background:#28483a}.board .given{background:#344d44}.board .filled{background:#87d6b4;color:#13281f}.board .marked{background:#293331}.board .conflict{outline:3px solid #ff9f89;outline-offset:-4px}.board .box{background:#bd844b;color:#171b17}.status{min-height:52px;padding:12px 16px;background:#182b25;border-left:3px solid #8be0b8;line-height:1.7}.footnote{margin:20px 0;color:#afc4bb;font-size:14px;line-height:1.8}.sequence{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0;align-items:center;font-size:32px}.piece{display:inline-flex;align-items:center;justify-content:center;min-width:50px;min-height:50px;background:#273e34;border-radius:10px;padding:8px}.big-board{max-width:560px}.directions{display:grid;grid-template-columns:repeat(3,56px);gap:6px}.kids-main a{color:#9ce4c2}.kids-main svg{max-width:100%;height:auto}.board .small{font-size:14px}.nav{max-height:85vh;overflow:auto}@media(max-width:760px){.sidebar{display:none}.kids-main{padding:18px 12px}.kids-main h1{font-size:28px}.toolbar{gap:6px}.board{gap:3px}.kids-main button{padding:8px 10px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.loop-body{width:100%;padding-left:20px;border-left:3px solid #88d9b5;display:flex;gap:5px;flex-wrap:wrap}
+body {
+  height: auto;
+  overflow: auto;
+}
+.kids-main {
+  max-width: 1080px;
+  width: 100%;
+  min-width: 0;
+  margin: auto;
+  padding: 32px;
+  color: #edf7f4;
+  font-family: system-ui, sans-serif;
+}
+.kids-main h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  margin: 16px 0;
+}
+.intro {
+  color: #b8cdc6;
+  line-height: 1.8;
+  max-width: 700px;
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: center;
+}
+.kids-main button,
+.kids-main select {
+  font: inherit;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 9px 14px;
+  color: #eefaf6;
+  background: #182b25;
+  border: 1px solid #517366;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.kids-main button:hover {
+  background: #29483b;
+}
+.kids-main button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.kids-main button:focus-visible,
+.kids-main select:focus-visible {
+  outline: 3px solid #ffd477;
+  outline-offset: 2px;
+}
+.kids-main button.selected {
+  outline: 3px solid #ffd477;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  width: min(100%, 520px);
+  gap: 5px;
+  margin: 20px 0;
+  touch-action: manipulation;
+}
+.board .cell {
+  aspect-ratio: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 2px;
+  font-size: clamp(16px, 3vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #416354;
+  background: #172b24;
+  color: #eefaf6;
+}
+.board .wall {
+  background: #354d45;
+  border-color: #354d45;
+}
+.board .player,
+.board .active {
+  background: #ffdc86;
+  color: #24231c;
+}
+.board .target {
+  border: 3px solid #64d9ac;
+}
+.board .hint {
+  outline: 3px dashed #ffdc86;
+  outline-offset: -4px;
+}
+.board .visited {
+  background: #28483a;
+}
+.board .given {
+  background: #344d44;
+}
+.board .filled {
+  background: #87d6b4;
+  color: #13281f;
+}
+.board .marked {
+  background: #293331;
+}
+.board .conflict {
+  outline: 3px solid #ff9f89;
+  outline-offset: -4px;
+}
+.board .box {
+  background: #bd844b;
+  color: #171b17;
+}
+.status {
+  min-height: 52px;
+  padding: 12px 16px;
+  background: #182b25;
+  border-left: 3px solid #8be0b8;
+  line-height: 1.7;
+}
+.footnote {
+  margin: 20px 0;
+  color: #afc4bb;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+  align-items: center;
+  font-size: 32px;
+}
+.piece {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+  background: #273e34;
+  border-radius: 10px;
+  padding: 8px;
+}
+.big-board {
+  max-width: 560px;
+}
+.directions {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 6px;
+}
+.kids-main a {
+  color: #9ce4c2;
+}
+.kids-main svg {
+  max-width: 100%;
+  height: auto;
+}
+.board .small {
+  font-size: 14px;
+}
+.nav {
+  max-height: 85vh;
+  overflow: auto;
+}
+@media (max-width: 760px) {
+  .sidebar {
+    display: none;
+  }
+  .kids-main {
+    padding: 18px 12px;
+  }
+  .kids-main h1 {
+    font-size: 28px;
+  }
+  .toolbar {
+    gap: 6px;
+  }
+  .board {
+    gap: 3px;
+  }
+  .kids-main button {
+    padding: 8px 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.loop-body {
+  width: 100%;
+  padding-left: 20px;
+  border-left: 3px solid #88d9b5;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.board .cell:disabled {
+  opacity: 1;
+}

@@ -58,7 +58,10 @@
         ...game,
         inputIndex: 0,
         score: game.sequence.length,
-        status: game.mode === "kids" && game.sequence.length >= 6 ? "won" : "round-complete",
+        status:
+          game.mode === "kids" && game.sequence.length >= 6
+            ? "won"
+            : "round-complete",
       };
     }
 
@@ -69,7 +72,8 @@
   }
 
   function replayRound(game) {
-    if (game.mode !== "kids" || !["input", "retry"].includes(game.status)) return game;
+    if (game.mode !== "kids" || !["input", "retry"].includes(game.status))
+      return game;
     return { ...game, inputIndex: 0, status: "input" };
   }
 

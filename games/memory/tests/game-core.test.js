@@ -39,5 +39,25 @@ test("flipCard mismatch locks until resolveTurn", () => {
   assert.equal(resolved.cards[1].state, "down");
 });
 
-for(const count of [2,4,6,8])test(`complete ${count} pairs without reusing matched cards`,()=>{let s=createGame({pairCount:count,randomFn:()=>.5});const groups=new Map();s.cards.forEach((c,i)=>groups.set(c.value,[...(groups.get(c.value)||[]),i]));assert.equal(groups.size,count);for(const pair of groups.values()){assert.equal(pair.length,2);s=flipCard(s,pair[0]);assert.equal(flipCard(s,pair[0]),s);s=flipCard(s,pair[1]);assert.equal(flipCard(s,pair[1]),s);}assert.equal(s.status,'won');assert.equal(s.matchedPairs,count);});
-test('invalid indexes cannot expose or change cards',()=>{const s=createGame({pairCount:2});for(const i of [-1,4,NaN,.5])assert.equal(flipCard(s,i),s);});
+for (const count of [2, 4, 6, 8])
+  test(`complete ${count} pairs without reusing matched cards`, () => {
+    let s = createGame({ pairCount: count, randomFn: () => 0.5 });
+    const groups = new Map();
+    s.cards.forEach((c, i) =>
+      groups.set(c.value, [...(groups.get(c.value) || []), i]),
+    );
+    assert.equal(groups.size, count);
+    for (const pair of groups.values()) {
+      assert.equal(pair.length, 2);
+      s = flipCard(s, pair[0]);
+      assert.equal(flipCard(s, pair[0]), s);
+      s = flipCard(s, pair[1]);
+      assert.equal(flipCard(s, pair[1]), s);
+    }
+    assert.equal(s.status, "won");
+    assert.equal(s.matchedPairs, count);
+  });
+test("invalid indexes cannot expose or change cards", () => {
+  const s = createGame({ pairCount: 2 });
+  for (const i of [-1, 4, NaN, 0.5]) assert.equal(flipCard(s, i), s);
+});

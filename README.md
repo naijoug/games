@@ -104,6 +104,21 @@ review any generated changes before copying them into current sources.
 - [Architecture and deployment](docs/project-functional-architecture.md)
 - [Historical plans and future plan format](docs/plans/README.md)
 
+## Children’s puzzle rollout and browser checks
+
+The collection now includes 10 new children's puzzles and junior modes for Memory, Simon, and Sokoban. See the [implementation record](docs/plans/2026-09-30-kids-puzzles/IMPLEMENTATION.md) for scope, staged commits, and verification. These features are implemented locally; an Online link alone does not mean this branch has been deployed.
+
+Optional browser regression checks use an externally available Playwright installation and Chromium; they are separate from the dependency-free Node tests and are not loaded by CI's test glob. Start the HTTP server above, then run:
+
+```bash
+# Set PLAYWRIGHT_MODULE_PATH only if Playwright is outside normal Node resolution.
+PLAYWRIGHT_MODULE_PATH=/absolute/path/to/playwright KIDS_BASE_URL=http://127.0.0.1:8000 node scripts/check-kids-browser.cjs
+# A single game can be checked by adding its directory name:
+PLAYWRIGHT_MODULE_PATH=/absolute/path/to/playwright KIDS_BASE_URL=http://127.0.0.1:8000 node scripts/check-kids-browser.cjs sudoku
+```
+
+The runner checks 1440px, 390px, and 320px viewports, game interactions, touch controls, navigation, storage failures and screenshots. `KIDS_SCREENSHOT_DIR` selects an output directory; the default is a disposable `kids-game-screenshots` folder under the system temporary directory. To check a preview hosted under the Pages project prefix, set `KIDS_BASE_URL` to that server's `/games` URL. No runtime dependencies or deployment changes are required.
+
 ## 2048
 
 ### Goal
