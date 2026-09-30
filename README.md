@@ -33,6 +33,8 @@ This repository contains small browser games.
 
 - [小车解堵](https://naijoug.github.io/games/games/traffic/)
 
+- [对称画画](https://naijoug.github.io/games/games/symmetry/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -424,3 +426,7 @@ fall back to a draw.
 ## 小车解堵
 
 18 关车辆规划，支持拖动、撤销与当前局面提示。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 对称画画
+
+18 个水平与竖直镜像图案，涂格、擦除和撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
