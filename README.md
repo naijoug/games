@@ -27,6 +27,8 @@ This repository contains small browser games.
 
 - [图形规律](https://naijoug.github.io/games/games/patterns/)
 
+- [四宫格数独](https://naijoug.github.io/games/games/sudoku/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -406,3 +408,7 @@ fall back to a draw.
 ## 图形规律
 
 24 道重复、缺项和双属性规律题。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 四宫格数独
+
+24 道动物或数字数独，可解释提示与撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。

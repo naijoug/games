@@ -11,7 +11,7 @@
 | 0 | 固化独立方案和统筹计划 | 完成 | docs: plan sequential kids puzzle rollout |
 | 1 | 迷宫寻路，18 关 | 完成 | feat: add maze puzzle |
 | 2 | 图形规律，24 题 | 完成 | feat: add pattern puzzle |
-| 3 | 四宫格数独，24 题 | 待实施 | feat: add junior sudoku |
+| 3 | 四宫格数独，24 题 | 完成 | feat: add junior sudoku |
 | 4 | 七巧板，12 关 | 待实施 | feat: add tangram puzzle |
 | 5 | 小车解堵，18 关 | 待实施 | feat: add traffic puzzle |
 | 6 | 对称画画，18 关 | 待实施 | feat: add symmetry puzzle |
@@ -37,3 +37,4 @@
 - 阶段 0：核对当前 main、17 款游戏和已有计划；准备提交规划基线。
 - 阶段 1（maze）：18 关解答与当前位置提示回放通过；全量 102 项测试通过，构建和链接检查通过。Chromium 1440/390/320px 通关、撤销、提示、重开及禁用存储检查通过，人工查看手机截图。
 - 阶段 2（patterns）：24 题周期规则与唯一选项检查通过；全量 104 项测试、构建和链接检查通过。浏览器三尺寸答题、提示、切题和禁用存储通过；手机序列调整为完整周期分组，修复后复查通过。
+- 阶段 3（sudoku）：24 题唯一解和简单推理完成测试通过；全量 107 项测试、构建及链接检查通过。Chromium 三尺寸填格通关、撤销、提示、显示切换和禁用存储检查通过。
