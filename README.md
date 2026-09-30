@@ -41,6 +41,8 @@ This repository contains small browser games.
 
 - [机器人送快递](https://naijoug.github.io/games/games/robot/)
 
+- [看数字画图](https://naijoug.github.io/games/games/nonogram/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -448,3 +450,7 @@ fall back to a draw.
 ## 机器人送快递
 
 18 关图形指令，运行、单步和单层重复编程。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 看数字画图
+
+20 道 5×5 数织，线索推理、涂格与标空。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
