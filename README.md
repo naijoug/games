@@ -25,6 +25,7 @@ This repository contains small browser games.
 
 - [迷宫寻路](https://naijoug.github.io/games/games/maze/)
 
+- [图形规律](https://naijoug.github.io/games/games/patterns/)
 
 ## Development
 
@@ -402,3 +403,6 @@ fall back to a draw.
 
 18 关方向与路线挑战，支持撤销和当前位置提示。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
 
+## 图形规律
+
+24 道重复、缺项和双属性规律题。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。

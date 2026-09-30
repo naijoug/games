@@ -1,0 +1,685 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.PatternLevels=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
+"use strict";
+return [
+  {
+    "id": "patterns-01",
+    "unit": [
+      0,
+      1
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "blankIndex": 5,
+    "options": [
+      1,
+      2,
+      3
+    ],
+    "answerId": 1,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-02",
+    "unit": [
+      0,
+      0,
+      1
+    ],
+    "sequence": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    "blankIndex": 8,
+    "options": [
+      2,
+      3,
+      1
+    ],
+    "answerId": 1,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-03",
+    "unit": [
+      0,
+      1,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "blankIndex": 8,
+    "options": [
+      0,
+      2,
+      3
+    ],
+    "answerId": 2,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-04",
+    "unit": [
+      1,
+      2
+    ],
+    "sequence": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2
+    ],
+    "blankIndex": 5,
+    "options": [
+      2,
+      3,
+      0
+    ],
+    "answerId": 2,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-05",
+    "unit": [
+      1,
+      1,
+      2
+    ],
+    "sequence": [
+      1,
+      1,
+      2,
+      1,
+      1,
+      2,
+      1,
+      1,
+      2
+    ],
+    "blankIndex": 8,
+    "options": [
+      3,
+      0,
+      2
+    ],
+    "answerId": 2,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-06",
+    "unit": [
+      1,
+      2,
+      3
+    ],
+    "sequence": [
+      1,
+      2,
+      3,
+      1,
+      2,
+      3,
+      1,
+      2,
+      3
+    ],
+    "blankIndex": 8,
+    "options": [
+      1,
+      3,
+      0
+    ],
+    "answerId": 3,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-07",
+    "unit": [
+      2,
+      3
+    ],
+    "sequence": [
+      2,
+      3,
+      2,
+      3,
+      2,
+      3
+    ],
+    "blankIndex": 5,
+    "options": [
+      3,
+      0,
+      1
+    ],
+    "answerId": 3,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-08",
+    "unit": [
+      2,
+      2,
+      3
+    ],
+    "sequence": [
+      2,
+      2,
+      3,
+      2,
+      2,
+      3,
+      2,
+      2,
+      3
+    ],
+    "blankIndex": 8,
+    "options": [
+      0,
+      1,
+      3
+    ],
+    "answerId": 3,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-09",
+    "unit": [
+      2,
+      3,
+      0
+    ],
+    "sequence": [
+      2,
+      3,
+      0,
+      2,
+      3,
+      0,
+      2,
+      3,
+      0
+    ],
+    "blankIndex": 5,
+    "options": [
+      2,
+      0,
+      1
+    ],
+    "answerId": 0,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-10",
+    "unit": [
+      3,
+      0
+    ],
+    "sequence": [
+      3,
+      0,
+      3,
+      0,
+      3,
+      0
+    ],
+    "blankIndex": 3,
+    "options": [
+      0,
+      1,
+      2
+    ],
+    "answerId": 0,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-11",
+    "unit": [
+      3,
+      3,
+      0
+    ],
+    "sequence": [
+      3,
+      3,
+      0,
+      3,
+      3,
+      0,
+      3,
+      3,
+      0
+    ],
+    "blankIndex": 4,
+    "options": [
+      0,
+      1,
+      3
+    ],
+    "answerId": 3,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-12",
+    "unit": [
+      3,
+      0,
+      1
+    ],
+    "sequence": [
+      3,
+      0,
+      1,
+      3,
+      0,
+      1,
+      3,
+      0,
+      1
+    ],
+    "blankIndex": 5,
+    "options": [
+      3,
+      1,
+      2
+    ],
+    "answerId": 1,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-13",
+    "unit": [
+      0,
+      1
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "blankIndex": 2,
+    "options": [
+      0,
+      1,
+      2
+    ],
+    "answerId": 0,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-14",
+    "unit": [
+      0,
+      0,
+      1
+    ],
+    "sequence": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    "blankIndex": 4,
+    "options": [
+      1,
+      2,
+      0
+    ],
+    "answerId": 0,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-15",
+    "unit": [
+      0,
+      1,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      0,
+      1,
+      2,
+      0,
+      1,
+      2
+    ],
+    "blankIndex": 5,
+    "options": [
+      0,
+      2,
+      3
+    ],
+    "answerId": 2,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-16",
+    "unit": [
+      1,
+      2
+    ],
+    "sequence": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2
+    ],
+    "blankIndex": 3,
+    "options": [
+      2,
+      3,
+      0
+    ],
+    "answerId": 2,
+    "dual": false,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-17",
+    "unit": [
+      0,
+      1,
+      0,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2
+    ],
+    "blankIndex": 4,
+    "options": [
+      1,
+      2,
+      0
+    ],
+    "answerId": 0,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-18",
+    "unit": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3
+    ],
+    "blankIndex": 5,
+    "options": [
+      3,
+      1,
+      2
+    ],
+    "answerId": 1,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-19",
+    "unit": [
+      0,
+      1,
+      0,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2
+    ],
+    "blankIndex": 6,
+    "options": [
+      0,
+      1,
+      2
+    ],
+    "answerId": 0,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-20",
+    "unit": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3
+    ],
+    "blankIndex": 7,
+    "options": [
+      0,
+      1,
+      3
+    ],
+    "answerId": 3,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-21",
+    "unit": [
+      0,
+      1,
+      0,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2
+    ],
+    "blankIndex": 4,
+    "options": [
+      2,
+      0,
+      1
+    ],
+    "answerId": 0,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-22",
+    "unit": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3
+    ],
+    "blankIndex": 5,
+    "options": [
+      1,
+      2,
+      3
+    ],
+    "answerId": 1,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-23",
+    "unit": [
+      0,
+      1,
+      0,
+      2
+    ],
+    "sequence": [
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2,
+      0,
+      1,
+      0,
+      2
+    ],
+    "blankIndex": 6,
+    "options": [
+      1,
+      2,
+      0
+    ],
+    "answerId": 0,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  },
+  {
+    "id": "patterns-24",
+    "unit": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3,
+      0,
+      1,
+      2,
+      3
+    ],
+    "blankIndex": 7,
+    "options": [
+      1,
+      3,
+      0
+    ],
+    "answerId": 3,
+    "dual": true,
+    "instruction": "每一组都按相同顺序重复。观察分组，选出问号处的图形。"
+  }
+];
+});
