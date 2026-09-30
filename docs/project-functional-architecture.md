@@ -20,7 +20,7 @@
 
 ## 游戏模块
 
-当前有 23 个游戏：`2048`、`breakout`、`chess`、`codebreaker`、`connect4`、`hackerword`、`hangman`、`invaders`、`lightsout`、`maze`、`memory`、`minesweeper`、`patterns`、`pong`、`simon`、`snake`、`sokoban`、`sudoku`、`symmetry`、`tangram`、`tictactoe`、`traffic`、`xiangqi`。
+当前有 24 个游戏：`2048`、`breakout`、`chess`、`codebreaker`、`connect4`、`hackerword`、`hangman`、`invaders`、`lightsout`、`make-ten`、`maze`、`memory`、`minesweeper`、`patterns`、`pong`、`simon`、`snake`、`sokoban`、`sudoku`、`symmetry`、`tangram`、`tictactoe`、`traffic`、`xiangqi`。
 
 典型模块结构为：
 

@@ -35,6 +35,8 @@ This repository contains small browser games.
 
 - [对称画画](https://naijoug.github.io/games/games/symmetry/)
 
+- [凑十配对](https://naijoug.github.io/games/games/make-ten/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -430,3 +432,7 @@ fall back to a draw.
 ## 对称画画
 
 18 个水平与竖直镜像图案，涂格、擦除和撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 凑十配对
+
+凑 5 或凑 10，数量图与数字配对，没有倒计时。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
