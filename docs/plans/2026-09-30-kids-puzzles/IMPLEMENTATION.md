@@ -1,6 +1,6 @@
 # 顺序实施统筹计划
 
-日期：2026-09-30。状态：实施中。范围为总览中的 10 款新游戏和 3 款儿童模式；沿用各独立计划的功能与验收要求。
+日期：2026-09-30。状态：完成。范围为总览中的 10 款新游戏和 3 款儿童模式；沿用各独立计划的功能与验收要求。
 
 ## 执行与提交边界
 
@@ -22,7 +22,7 @@
 | 11 | 翻牌儿童模式 | 完成 | feat: add junior memory mode |
 | 12 | Simon 儿童模式 | 完成 | feat: add junior Simon mode |
 | 13 | 推箱子儿童模式，12 关 | 完成 | feat: add junior sokoban mode |
-| 14 | 收尾复核与证据整理 | 待实施 | docs: record kids puzzle rollout results |
+| 14 | 收尾复核、回归修复与证据整理 | 完成 | fix: harden kids puzzle interaction and content checks；docs: record kids puzzle rollout results |
 
 ## 阶段门槛
 
@@ -34,7 +34,7 @@
 
 ## 实施记录
 
-- 阶段 0：核对当前 main、17 款游戏和已有计划；准备提交规划基线。
+- 阶段 0：核对当前 main、17 款游戏和已有计划；规划基线已提交为 `29ab921`。
 - 阶段 1（maze）：18 关解答与当前位置提示回放通过；全量 102 项测试通过，构建和链接检查通过。Chromium 1440/390/320px 通关、撤销、提示、重开及禁用存储检查通过，人工查看手机截图。
 - 阶段 2（patterns）：24 题周期规则与唯一选项检查通过；全量 104 项测试、构建和链接检查通过。浏览器三尺寸答题、提示、切题和禁用存储通过；手机序列调整为完整周期分组，修复后复查通过。
 - 阶段 3（sudoku）：24 题唯一解和简单推理完成测试通过；全量 107 项测试、构建及链接检查通过。Chromium 三尺寸填格通关、撤销、提示、显示切换和禁用存储检查通过。
@@ -48,3 +48,26 @@
 - 阶段 11（memory）：复用配对核心，8 项本游戏测试通过；浏览器三尺寸儿童 2 对通关、6 对布局、背面可访问名称和新旧计时器竞争场景通过。经典 8 对仍是默认，儿童使用动物符号与中文标签。
 - 阶段 12（simon）：6 项本游戏测试通过，保留经典模式回归；儿童重试保留序列、六轮信号通关、非法输入和重播规则通过。浏览器三尺寸播放时拒绝输入、错按重试、虚拟时钟六轮通关及播放中重开取消检查通过。
 - 阶段 13（sokoban）：9 项本游戏测试通过，含 12 关解答回放、有界求解、撤销 Set 隔离、越界和经典额外目标语义。浏览器三尺寸儿童首尾关通关、撤销、提示、经典/儿童切换和禁用存储检查通过。
+
+- 阶段 14：修复键盘焦点恢复、水管切关残留、高阶对称切回入门的色板状态、数独显示偏好和数织冲突优先提示；替换重复的迷宫、规律、对称和机器人题目，增加内容去重回归。全部源文件完成可读格式整理，浏览器脚本纳入仓库。回归修复提交为 `2bb09e3`。
+- 最终证据：147 项 Node 测试全通过，构建与 46 页／27 款游戏的静态链接检查通过；13 款相关游戏 × 3 种屏幕尺寸的交互、触摸、导航及存储异常验收通过。详见[验证报告与截图](VERIFICATION.md)。未推送或部署。
+
+## 实际提交记录
+
+- `29ab921` — docs: plan sequential kids puzzle rollout
+- `14123db` — feat: add maze puzzle
+- `d8f8ed2` — feat: add pattern puzzle
+- `f3c8b46` — feat: add junior sudoku
+- `eddd8c9` — feat: add tangram puzzle
+- `2e404cb` — feat: add traffic puzzle
+- `0963a2c` — feat: add symmetry puzzle
+- `5b50fc1` — feat: add number bonds game
+- `022e634` — feat: add pipes puzzle
+- `c563864` — feat: add robot programming puzzle
+- `7a40fb6` — feat: add nonogram puzzle
+- `bf14376` — feat: add junior memory mode
+- `76d75fa` — feat: add junior Simon mode
+- `96892da` — feat: add junior sokoban mode
+- `2bb09e3` — fix: harden kids puzzle interaction and content checks
+
+本文件与验证报告的最后一次提交为收尾文档阶段；各游戏提交后发现的跨游戏问题统一记录在最后的回归修复提交中。
