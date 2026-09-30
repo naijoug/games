@@ -258,20 +258,7 @@ Destroy the descending packet wave before it reaches the terminal base.
 
 ## Sokoban
 
-### Goal
-
-Push every payload crate onto a target node.
-
-### Controls
-
-- Keyboard: `Arrow Keys` or `W / A / S / D`
-- Mobile: on-screen direction buttons
-
-### Rules
-
-- You can push one crate at a time.
-- Crates cannot move through walls or other crates.
-- Complete a level by placing all crates on targets.
+Push every box onto a target using arrow keys, WASD, or direction buttons. Classic mode retains the three original levels and its every-box-on-a-target completion rule. Children's mode adds 12 verified levels with one or two boxes, undo, corner warnings, and hints calculated from the current position. Hints use bounded, cancellable local search; if no hint is available, undo or restart. Mode and completed children's levels are saved locally.
 
 ## Tic Tac Toe
 
