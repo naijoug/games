@@ -37,6 +37,8 @@ This repository contains small browser games.
 
 - [凑十配对](https://naijoug.github.io/games/games/make-ten/)
 
+- [接通水管](https://naijoug.github.io/games/games/pipes/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -436,3 +438,7 @@ fall back to a draw.
 ## 凑十配对
 
 凑 5 或凑 10，数量图与数字配对，没有倒计时。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 接通水管
+
+18 关旋转管道与水流检查，支持漏口提示和撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
