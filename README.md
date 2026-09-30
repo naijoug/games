@@ -29,6 +29,8 @@ This repository contains small browser games.
 
 - [四宫格数独](https://naijoug.github.io/games/games/sudoku/)
 
+- [七巧板](https://naijoug.github.io/games/games/tangram/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -412,3 +414,7 @@ fall back to a draw.
 ## 四宫格数独
 
 24 道动物或数字数独，可解释提示与撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 七巧板
+
+12 个七块拼搭目标，拖动或按钮操作、旋转与翻面。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
