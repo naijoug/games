@@ -1,0 +1,11 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.RobotCore=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
+"use strict";
+const TYPES=['forward','left','right'],DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
+function compileProgram(program){if(!Array.isArray(program)||!program.length)throw Error('先添加至少一条指令。');let nodes=0;const actions=[];function action(node,index,childIndex){nodes++;if(!node||!TYPES.includes(node.type))throw Error('只能使用前进、左转、右转，循环不能嵌套。');return {action:node.type,index,childIndex};}program.forEach((node,index)=>{if(node?.type==='repeat'){nodes++;if(!Number.isInteger(node.count)||node.count<2||node.count>4||!Array.isArray(node.body)||!node.body.length)throw Error('重复次数为 2–4，循环体不能为空。');const body=node.body.map((x,j)=>action(x,index,j));for(let n=0;n<node.count;n++)actions.push(...body);}else actions.push(action(node,index,null));if(nodes>20||actions.length>64)throw Error('最多 20 个编辑节点，展开后最多 64 步。');});return actions;}
+function validateProgram(p){try{compileProgram(p);return null;}catch(e){return e.message;}}
+function createGame(level){return {level,player:level.start,direction:level.direction,pc:0,actions:[],status:'ready',error:null};}
+function createRun(level,p){return {...createGame(level),actions:compileProgram(p),status:'running'};}
+function stepRun(s){if(s.status!=='running')return s;const action=s.actions[s.pc].action;let player=s.player,direction=s.direction;if(action==='left')direction=(direction+3)%4;if(action==='right')direction=(direction+1)%4;if(action==='forward'){const [dr,dc]=DIRS[direction],n=s.level.size,r=Math.floor(player/n)+dr,c=player%n+dc;if(r<0||c<0||r>=n||c>=n||s.level.map[r][c]==='#')return {...s,status:'needs-edit',error:'这一步前进会碰到墙，请修改指令。'};player=r*n+c;}const pc=s.pc+1;return {...s,player,direction,pc,status:pc===s.actions.length?(player===s.level.goal?'won':'needs-edit'):'running',error:pc===s.actions.length&&player!==s.level.goal?'指令结束了，还没到旗子。再检查路线。':null};}
+function getHint(s){return s.error||'参考开头：'+s.level.solution.slice(0,3).map(n=>({forward:'前进',left:'左转',right:'右转',repeat:'重复 '+n.count+' 次前进'})[n.type]).join(' → ')+'。这是参考方案，可以有其他走法。';}
+return {createGame,createRun,stepRun,resetRun:createGame,compileProgram,validateProgram,getHint};
+});

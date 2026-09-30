@@ -39,6 +39,8 @@ This repository contains small browser games.
 
 - [接通水管](https://naijoug.github.io/games/games/pipes/)
 
+- [机器人送快递](https://naijoug.github.io/games/games/robot/)
+
 ## Development
 
 Use Node.js 22 (matching CI); no npm dependencies or installation step are needed.
@@ -442,3 +444,7 @@ fall back to a draw.
 ## 接通水管
 
 18 关旋转管道与水流检查，支持漏口提示和撤销。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
+
+## 机器人送快递
+
+18 关图形指令，运行、单步和单层重复编程。中文说明，支持鼠标、触摸和键盘，关卡进度保存在本地；无需账号。具体规则见游戏页面。
